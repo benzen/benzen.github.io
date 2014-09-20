@@ -1,5 +1,4 @@
 ---
-title: Welcome
+layout: welcome
+title: Benzen on github
 ---
-Old posts
-{{site.posts}}
