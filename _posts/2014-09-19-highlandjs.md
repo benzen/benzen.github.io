@@ -66,7 +66,7 @@ Le layout, très simple. Un mini script bash pour:
  * placer les choses au bon endroit
  * lancer un [http-server](https://github.com/nodeapps/http-server)
 
-Premier coup d'épéé
+Premier coup d'épée
 ------------------
 
 Droit au but, jettez un oeil à [ceci](https://github.com/benzen/demo-highland/blob/8580234102c287b94a5493db4f881593c5146f90/src/index.jade)
@@ -84,9 +84,10 @@ Droit au but, jettez un oeil à [ceci](https://github.com/benzen/demo-highland/b
 
 Le processus est super simple, une fois que l'on a compris le principe.
 Il y a trois type d'opérateur avec highland:
- * des sources typiquement `highland(whatEver)`
- * des aspirateurs de valeurs comme `.each(function(){})``
- * des tuyaux comme `.map()`
+
+* des sources typiquement `highland(whatEver)`
+* des aspirateurs de valeurs comme `.each(function(){})``
+* des tuyaux comme `.map()`
 
 Chaque appel chainé va ajouter une opération au pipeline, sauf le dernier.
 Comme le dernier appel est un _apirateur_, il va aspirer des valeur immédiatement.
