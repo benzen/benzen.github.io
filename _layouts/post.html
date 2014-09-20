@@ -1,18 +1,18 @@
 <html>
   <head>
-    <title>{% page.title %}</title>
-    <link rel="stylesheet" type="text/css" href="{% site.baseurl %}/css/bootstrap.css">
-    <script type="text/javascript" src="{% site.baseurl %}/js/bootstrap.js"> </script>
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/bootstrap.css">
+    <script type="text/javascript" src="{{ site.baseurl }}/js/bootstrap.js"> </script>
   </head>
   <body>
-    {%page.title %}
+    {{page.title }}
 
-    {%content %}
-    {%permalink %}
-    {%date %}
-    {%tags %}
+    {{content }}
+    {{permalink }}
+    {{date }}
+    {{tags }}
 
-{%page.next %}
-{%page.next %}
+{{page.next }}
+{{page.next }}
   </body>
 </html>
