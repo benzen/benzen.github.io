@@ -1,6 +1,6 @@
 ---
 title: Highlander.js
-layout:post
+layout: post
 ---
 
 I wanted to try highlander
