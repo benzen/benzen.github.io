@@ -43,6 +43,7 @@ Grossièrement l'idée est la même que pour RxJs. Sauf qu'il y arrive par une l
 de réunification. De ce fait la, Highland.js propose une api qui supporte plein de source d'évènement.
 
 Les sources supporté sont:
+
 * Promesses ES6 / jQuery
 * Callback node style
 * Event Emitter / element jquerifié
@@ -61,6 +62,7 @@ On comprend toujours mieux avec les mains dans le camboui. Alors je me suis fait
 un projet jouet [ici](https://github.com/benzen/demo-highland).
 
 Le layout, très simple. Un mini script bash pour:
+
  * installer les dependences bower
  * compiler les [jade](http://jade-lang.com/)
  * placer les choses au bon endroit
