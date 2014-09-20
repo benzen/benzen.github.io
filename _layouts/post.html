@@ -1,21 +1,35 @@
 <html>
   <head>
-    <title>{{ page.title }}</title>
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-    <script type="text/javascript" src="/js/bootstrap.js"> </script>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <title>Benzen - {{ page.title }}</title>
+    <script type="text/javascript" src="/js/jquery.js"> </script>
+    <script type="text/javascript" src="/js/bootstrap.js"> </script>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.css">
   </head>
   <body>
     <div class="container">
-      <h1>{{page.title }}</h1>
+
+      <h1>
+        <a href="/">
+          <i class="fa fa-home fa-lg"></i>
+        </a>
+        {{page.title }}
+        <small>
+          <a href="{{ permalink }}">
+            <i class="fa fa-link"></i>
+          </a>
+          <ul class="list-inline" style="display: inline-block">
+            {% for tag in post.tags %}
+              <li class="badge">{{tag}}</li>
+            {% endfor %}
+          </ul>
+          publié le: {{page.date | date:" %F"}}
+        </small>
+      </h1>
+
 
       {{content }}
-      {{permalink }}
-      {{date }}
-      {{tags }}
-
-      {{page.next }}
-      {{page.next }}
 
       <div id="disqus_thread"></div>
       <script type="text/javascript">

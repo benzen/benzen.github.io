@@ -124,3 +124,88 @@ highland 'keyup',$('#fld')
  .each (result)-> $('#content').html(result)
 
 ```
+
+The Quickening
+-----------
+
+On avance un peux. On va regarder [ici](https://github.com/benzen/demo-highland/blob/16eecb213635bbe953662a0a11ddc05c30c7bb1b/src/index.jade)
+
+```javascript
+var counter = 1;
+var click1 = highland('click',$('button#btn1'));
+var click2 = highland('click',$('button#btn2'));
+highland([click1,click2])
+  .merge()
+  .each(function(){
+    $('#score-board').html("<p>" + counter++ +"</p>");
+});
+```
+
+Ici on travail avec deux source asynchrone. Les deux évènement click peuvent se produire
+en même temps ou l'un après l'autre. peut importe. Les deux streams qui wrap les source de click
+sont mergé ensemble.
+
+C'est comme avoir un Y en plomberie. On fusionne deux sources en une seule.
+Et enfin le `.each()` permet de consomer le nouveaux flux et de travailler avec ses valeurs.
+
+The final dimension
+-----
+
+On avait un merge, on va travailler avec un fork qui fait basiquement l'inverse.
+On part d'un flux que l'on vas diviser en deux.
+
+Mais un fork ne va pas séparer les évènements, les deux stream vont avoir le même contenu.
+De plus pour être certain que personne ne manque de contenu, tous les flux qui
+viennent d'un fork s'attendent entre eux pour vraiemment commencer à consommer leur source.
+
+```javascript
+var data = [10,20,40,50,80,10,20,304,204,432,432,432,432,432,432121,543,543,5432523,432,321,321,432654,654,765,231543,543765,765432,543]
+var s = highland(data)
+var s1 = s.fork();
+var s2 = s.fork();
+s1.filter(function(x){ return x % 2 })
+  .consume(function(err, x, push, next){
+    if(x === highland.nil){
+      push(null,x);
+    }else{
+      console.log("even says"+x);
+      push(null,x);
+      next();
+    }
+  }).resume();
+console.log("s1 is started")
+s2.reject(function(x){ return x % 2})
+  .consume(function(err, x, push, next){
+    if(x === highland.nil){
+      push(null,x);
+    }else{
+      console.log("odd says"+x);
+      push(null,x);
+      next();
+    }
+  }).resume();
+  console.log("s2 is started")
+```
+
+Ici un crée deux copie du flux initial. Pour l'un on va filtrer les nom paire,
+pour l'autre les impaires(on rejète les paire du flux).
+Puis pour chacun on va péparer un `.consume()`.
+Contrairement au `.each()`, `.consume()` n'aspire pas immédiatement les valeurs.
+
+De plus `.consume()` offre plus de souplesse que par exemple on peux rejecter
+ une valeur du stream. En contre-partie, la fonction que l'on passe à
+  `.consume()` est pas mal plus complexe.
+
+On découvre ici le `higland.nil`, c'est un peux l'équivalent de
+la liste vide en [lisp](http://fr.wikipedia.org/wiki/Lisp), c'est un marqueur de fin
+de stream.
+
+`.consume()` reçoit aussi deux fonction, `push` et `next`. `push` permet de
+remettre une valeur dans le pipe alors que `next` permet de délarer que le tritement
+du flux d'entrée est terminé.
+
+
+Pour la prochaine fois
+========
+La prochaine fois que je touche à _Highland.js_ je vais essaayer de mieux comprendre
+le concept en arrière du _back-pressure_ dont il est question dans la doc.
