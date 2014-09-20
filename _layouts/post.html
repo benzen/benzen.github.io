@@ -19,14 +19,15 @@
           <a href="{{ permalink }}">
             <i class="fa fa-link"></i>
           </a>
-          <ul class="list-inline" style="display: inline-block">
-            {% for tag in post.tags %}
-              <li class="badge">{{tag}}</li>
-            {% endfor %}
-          </ul>
           publié le: {{page.date | date:" %F"}}
         </small>
+
       </h1>
+      <ul class="list-inline" style="display: inline-block">
+        {% for tag in page.tags %}
+          <li class="badge">{{tag}}</li>
+        {% endfor %}
+      </ul>
 
 
       {{content }}
