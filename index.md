@@ -1,4 +1,5 @@
 ---
 title: Welcome
 ---
-BENZEN
+Old posts
+{{site.posts}}
