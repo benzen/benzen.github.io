@@ -22,7 +22,7 @@ ces évènements avec des opérateurs que l'on est habitué de voir sur des list
 Pour ce fait on wrap nos source d'évènements avec les objet de l'api pour standardisé
 l'api avec laquelle on va consomer ces évènements. D'après ce qui est dis dans la
 présentation, en arrière l'api crée un mix entre les patterns
-[observateur](http://fr.wikipedia.org/wiki/Observateur_(patron_de_conception) et
+[observateur](http://fr.wikipedia.org/wiki/Observateur_(patron_de_conception)) et
  [iterateur](http://fr.wikipedia.org/wiki/It%C3%A9rateur). C'est ce qu'ils
  appelent le [Functional Reactive Programming](http://en.wikipedia.org/wiki/Functional_reactive_programming).
 
