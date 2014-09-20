@@ -205,6 +205,18 @@ remettre une valeur dans le pipe alors que `next` permet de délarer que le trit
 du flux d'entrée est terminé.
 
 
+Mon petit avis
+================
+
+Pour l'instant je n'ai pas vu de problème avec mon utilisation.
+D'après ce que j'ai vu il y a un petit liste de demande sur le bugtracker, mais
+ça à plus l'air d'être des propositions d'amélioration. C'est donc plutôt bon signe.
+
+À date il me semble que le code produit avec cette librairie est assez claire et
+relativement puissant. Reste à voir si en situation réel on pense à sortir _highland.js_
+de notre utility belt.
+
+
 Pour la prochaine fois
 ========
 La prochaine fois que je touche à _Highland.js_ je vais essaayer de mieux comprendre
