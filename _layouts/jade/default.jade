@@ -1,0 +1,47 @@
+!!! 5
+html
+  head
+    script(src='/js/jquery.js', charset='utf-8')
+    script(src='/js/bootstrap.js', charset='utf-8')
+
+    link(rel='stylesheet', type='text/css', href='/css/bootstrap.css')
+    link(rel='stylesheet', type='text/css', href='/css/font-awesome.css')
+    link(rel='stylesheet', type='text/css', href='/css/pygments.css')
+    meta(http-equiv='content-type', content='text/html;charset=utf-8')
+    script.
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-55046322-1', 'auto');
+      ga('send', 'pageview');
+  body
+    .container
+      .page-header
+        h1
+          | {{page.title}}
+          small
+            | Benjamin Dreux
+            a(href='https://twitter.com/BenjaminDreux') &nbsp;
+              i.fa.fa-twitter
+            a(href='https://github.com/benzen') &nbsp;
+              i.fa.fa-github
+            a(href='http://stackoverflow.com/users/340467/benzen') &nbsp;
+              i.fa.fa-stack-overflow
+            a(href='https://www.linkedin.com/pub/benjamin-dreux/18/7a/aa6') &nbsp;
+              i.fa.fa-linkedin
+            a(href='http://www.code3.ca') &nbsp;
+              i.fa.fa-rebel
+      ul.list-unstyled {% for post in site.posts %}
+        li.divider
+        li
+          h1.page-header
+            a(href='{{ post.url }}')
+              | {{ post.title }}&nbsp;
+            ul.list-inline(style='display: inline-block;')
+              | {% for tag in post.tags %}
+              li.badge {{tag}}
+              | {% endfor %}
+          p
+            | {{post.content}}
+        | {% endfor %}
