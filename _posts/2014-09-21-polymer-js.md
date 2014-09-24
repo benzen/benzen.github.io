@@ -143,7 +143,7 @@ Puis ils font d'autres choses. C'est-tu assez fou.
 
 Autre bel exemple. Je voulais avoir un petit routeur pour diriger les utilisateurs
 entre les différentes pages de mon app. Rien de plus simple.
-Une petite recherche sur [bower](bower.io), puis on trouve
+Une petite recherche sur [bower](http://bower.io), puis on trouve
 [app-router](https://github.com/erikringsmuth/app-router) de
 [@erikringsmuth](https://github.com/erikringsmuth).
 
