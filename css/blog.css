@@ -1,0 +1,7 @@
+.post-divider:not(:last-child) {
+  border-bottom: 1px solid #eee;
+}
+
+.badge{
+  margin: 3px;
+}
