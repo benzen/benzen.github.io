@@ -8,7 +8,7 @@ tags: js library trial stream promise callback
 =======
 
 
-Je suis un fan de conférence, que je regarde la plus part du temps sur
+Je regarde beaucoup de conférences, la plus part du temps sur
 [InfoQ](http://www.infoq.com/presentations/).
 
 L'autre jour j'ai vu une conférence conjointe entre un gars de
@@ -17,12 +17,13 @@ Microsoft et un autre de Netflix
 Ils présentaient un framework qui permet de traiter tous les types d'événements
 de la même manière. Que ce soit des clics de souris, des touches de clavier,
 des requêtes asynchrones ou de la traversée de liste, ils proposent de travailler
-ces évènements avec des opérateurs que l'on est habitué de voir sur des listes.
+ces évènements avec des opérateurs que l'on est habitué de voir sur des listes,
+ genre `find`, `map`, etc.
 
-Pour ce faire on wrap nos sources d'évènements avec les objets de l'api pour standardisé
+Pour ce faire on wrap nos sources d'évènements avec les objets de l'api pour standardiser
 l'api avec laquelle on va consommer ces évènements. D'après ce qui est dit dans la
 présentation, en arrière l'api crée un mix entre les patterns
-[observateur](http://fr.wikipedia.org/wiki/Observateur_(patron_de_conception)) et
+[observateur](http://fr.wikipedia.org/wiki/Observateur_(patron_de_conception) et
  [itérateur](http://fr.wikipedia.org/wiki/It%C3%A9rateur). C'est ce qu'ils
  appellent le [Functional Reactive Programming](http://en.wikipedia.org/wiki/Functional_reactive_programming).
 
@@ -34,10 +35,10 @@ en arrière de ce projet l'api qui est proposé utilise des noms à la
 
 J'ai commencé à lire la [documentation](http://reactive-extensions.github.io/RxJS/)
 disponible pour le portage JS de cette libraire. Puis j'ai cherché d'autres
-sources d'info plus détaillées. Et je suis tombé sur [Higland.js](http://highlandjs.org/).
-
-Il s'agit d'un projet de [@caolan](https://twitter.com/caolan) qui est
-aussi l'auteur de [Async.js](https://github.com/caolan/async).
+sources d'info plus détaillées. Et je suis tombé
+ sur [Highland.js](http://highlandjs.org/) de
+ [@caolan](https://twitter.com/caolan) qui est aussi l'auteur
+ de [Async.js](https://github.com/caolan/async).
 
 Grossièrement l'idée est la même que pour RxJs. Sauf qu'il y arrive par une logique
 de réunification. De ce fait là, Highland.js propose une api qui supporte plein de sources d'évènement.
@@ -194,7 +195,7 @@ pour l'autre les impaires(on rejette les pairs du flux).
 Puis pour chacun on va préparer un `.consume()`.
 Contrairement au `.each()`, `.consume()` n'aspire pas immédiatement les valeurs.
 
-De plus `.consume()` offre plus de souplesse que par exemple on peut rejeter
+De plus `.consume()` offre plus de souplesse, par exemple on peut rejeter
  une valeur du stream. En contrepartie, la fonction que l'on passe à
   `.consume()` est pas mal plus complexe.
 

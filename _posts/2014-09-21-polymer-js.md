@@ -50,7 +50,7 @@ Un setup un peu long
 ===================
 
 Comme c’est une techno front end, j'ai commencé par là.
-Une petite page d'accueil toute simple avec un menu menu sur la gauche.
+Une petite page d'accueil toute simple avec un menu sur la gauche.
 
 En théorie il suffit de deux lignes dans notre `head`
 pour bootstrapper notre environnement.
@@ -77,9 +77,10 @@ Dans les faits j'ai eu besoin de rajouter pas mal de dépendances HTML.
   link(rel="import", href="dep/app-router/app-router.html")
 ```
 
-Je ne suis pas certain si j'avais pu en enlever certains grâce à leurs dépendances.
-Je me suis rendu avec cette liste en suivant ce que je voulais ajouter et les
-messages d'erreur que j'ai eue dans la console.
+Je ne suis pas certain, mais je crois que j'aurais pu en enlever
+ certains grâce à leurs dépendances. Je me suis rendu avec cette liste en
+ suivant ce que je voulais ajouter et les messages d'erreur
+ que j'ai eue dans la console.
 
 
 Mon premier élément
@@ -108,8 +109,13 @@ Dans l'élément `template` contient le template pour notre nouvel élément.
 Quand on utilise notre nouvel élément, c'est une copie de notre template qui
 sera injecté dans le DOM. L'élément template supporte l'expansion de variable
 avec des moustaches. Si l’on veut avoir un peut de logique tout ça est possible
-avec d'autres balises template. Elle supporte par exemple un attribut `repeat` avec
-comme valeur une expression comme `value in values`.
+avec d'autres balises template. Elle supporte par exemple un attribut `repeat` qui peut
+prendre tout une série de format d'expression comme par exemple:
+
+```jade
+  template(repeat="moustache in mustaches")
+    p La moustache {{moustache}} est la plus belle moustache que j'ai vu.
+```
 
 L'élément `script` permet de donner un peu de logique pour notre élément.
 Ce n'est pas nécessaire, mais ça peut être utile.
@@ -132,7 +138,7 @@ tous nos plug-ins se marchent sur les pieds dans le scope global.
 
 Les jeunes aujourd'hui ils font plus ça de même. Ils importent un élément comme
 [chart-elements](https://github.com/robdodson/chart-elements) de
-[@robdodson](http://robdodson.me/). Ils font ce qu'ils ont besoin de faire .
+[@robdodson](http://robdodson.me/). Ils font ce qu'ils ont besoin de faire.
 Puis ils font d'autres choses. C'est-tu assez fou.
 
 Autre bel exemple. Je voulais avoir un petit routeur pour diriger les utilisateurs
@@ -170,21 +176,13 @@ D'après ce qui s'est passé sur le
 peut voir qu'il y a d'autres petits soucis. Mais la communauté à déjà proposé
 des PR pour ces bug. C'est plutôt encourageant pour le support de la communauté.
 
-J'ai eu un autre pépin, en faisant mon premier élément j'ai eu le malheur
-d'inverser les éléments script et template. Dans ce cas la, pas d'erreur, rien.
-Même pas un petit message flou dans la console.
+J'ai eu un autre pépin, en faisant mon premier élément j'ai eu la mauvaise idée
+d'inverser les éléments script et template. Dans ce cas là, pas d'erreur, rien.
+Même pas un petit message flou dans la console. L'appli arrête juste de fonctionner.
+
 À titre personnel, j'aurais voulu avoir une forme de validation des éléments
 lors de leurs imports/lecture. Je l'ai proposé, mais étant donné que tous les
-exemples sont présentés dans le bon ordre, on préfère ne rien rajouter.
+exemples sont présentés dans le bon ordre, l'équipe préfère ne rien rajouter.
 
-Il faut donc laisser un peut de temps à Polymer de passer son adolessance en le
+Il faut donc laisser un peut de temps à Polymer de passer son adolescence en le
 regardant du coin de l'oeil.
-
-
-Mon petit avis
-================
-
-Parmi des choses qui m'ont le plus marqué, c'est le fait que l'on se retrouve
-parfois avec des erreurs qui ne sont pas évidentes à débugé. C'est comme avec du
-HTML de base. Sauf que quand il s'agit d'un élément non visuel, il n'est pas
-toujours évident de comprendre ce qui se passe.
