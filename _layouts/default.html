@@ -1,6 +1,36 @@
-<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html;charset=utf-8"><script src="/js/jquery.js" charset="utf-8"></script><script src="/js/bootstrap.js" charset="utf-8"></script><link rel="stylesheet" type="text/css" href="/css/bootstrap.css"><link rel="stylesheet" type="text/css" href="/css/font-awesome.css"><link rel="stylesheet" type="text/css" href="/css/pygments.css"><link rel="stylesheet" type="text/css" href="/css/blog.css"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-ga('create', 'UA-55046322-1', 'auto');
-ga('send', 'pageview');</script></head><body><div class="container"><div class="page-header"><h1>{{page.title}}&nbsp;<small>Benjamin Dreux&nbsp;<a href="https://twitter.com/BenjaminDreux"><i class="fa fa-twitter">&nbsp;</i></a><a href="https://github.com/benzen"><i class="fa fa-github">&nbsp;</i></a><a href="http://stackoverflow.com/users/340467/benzen"><i class="fa fa-stack-overflow">&nbsp;</i></a><a href="https://www.linkedin.com/pub/benjamin-dreux/18/7a/aa6"><i class="fa fa-linkedin">&nbsp;</i></a><a href="http://www.code3.ca"><i class="fa fa-rebel">&nbsp;</i></a></small></h1></div><ul class="list-unstyled">{% for post in site.posts %}<li class="post-divider"><h2><a href="{{ post.url }}">{{ post.title }}&nbsp;</a>{% for tag in post.tags %}<span class="badge">{{tag}}</span>{% endfor %}</h2><p>{{post.content}}</p></li>{% endfor %}</ul></div></body></html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <script src="/js/jquery.js" charset="utf-8"></script>
+    <script src="/js/bootstrap.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="/css/pygments.css">
+    <link rel="stylesheet" type="text/css" href="/css/blog.css">
+    <script>
+      var blogUrl = "benzen.github.io";
+      if(window.location.origin.indexOf(blogUrl) > -1){
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-55046322-1', 'auto');
+        ga('send', 'pageview');
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="page-header">
+        <h1>{{page.title}}&nbsp;<small>Benjamin Dreux&nbsp;<a href="https://twitter.com/BenjaminDreux"><i class="fa fa-twitter">&nbsp;</i></a><a href="https://github.com/benzen"><i class="fa fa-github">&nbsp;</i></a><a href="http://stackoverflow.com/users/340467/benzen"><i class="fa fa-stack-overflow">&nbsp;</i></a><a href="https://www.linkedin.com/pub/benjamin-dreux/18/7a/aa6"><i class="fa fa-linkedin">&nbsp;</i></a><a href="http://www.code3.ca"><i class="fa fa-rebel">&nbsp;</i></a></small></h1>
+      </div>
+      <ul class="list-unstyled">{% for post in site.posts %}
+        <li class="post-divider">
+          <h2><a href="{{ post.url }}">{{ post.title }}&nbsp;</a>{% for tag in post.tags %}<span class="badge">{{tag}}</span>{% endfor %}</h2>
+          <p>{{post.content}}</p>
+        </li>{% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>
