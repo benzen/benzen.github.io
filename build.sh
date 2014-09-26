@@ -6,5 +6,5 @@ cp -r bower_components/jquery/dist/* js/.
 cp -r bower_components/font-awesome/css .
 cp -r bower_components/font-awesome/fonts .
 
-jade _layouts/jade --out _layouts
+jade _layouts/jade --out _layouts --pretty
 jekyll serve --watch --drafts
