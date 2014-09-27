@@ -12,7 +12,7 @@ html
           i.fa.fa-home.fa-lg&nbsp;
         | {{page.title }}&nbsp;
         small
-          a(href='{{ permalink }}')
+          a(href='{{ permalink }}#disqus_thread', data-disqus-identifier="{{permalink}}")
             i.fa.fa-link&nbsp;
           | publié le: {{page.date | date:" %F"}}
       ul.list-inline(style='display: inline-block;')
