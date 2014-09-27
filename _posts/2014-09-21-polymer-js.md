@@ -7,9 +7,9 @@ tags: js polymer.js trial
 Quand j'ai commencé à jouer avec Angular.js, un des slogans c'était
 que l'on utilisait les techniques de demain aujourd'hui. Il était question
 de `data-binding` et de templating natif.
-
 Et puis j'ai commencé à entendre parler de
 [web-components](http://en.wikipedia.org/wiki/HTML_Components).
+
 Il s'agit d'un ensemble d'API qui permettent de créer de nouveaux éléments
 HTML. L'api se décompose en:
 

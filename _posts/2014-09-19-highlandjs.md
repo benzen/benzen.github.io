@@ -4,9 +4,15 @@ layout: post
 tags: js library trial stream promise callback
 ---
 
+Entre les évènements de souris et de clavier, les callbacks,
+les promesses, les itérateurs et les streams le petit monde du JS offre
+beaucoup de modèle de programmation qui sont tous proches mais elle ne sont pas
+identique et surtout elles ne sont pas toutes compatibles.
+Ce qui veut dire qu'enchainer les unes derrière les autres ca peut vite devennir
+l'enfer.
+
  Ne pas faire ce que l'on veux, des fois c'est cool
 =======
-
 
 Je regarde beaucoup de conférences, la plus part du temps sur
 [InfoQ](http://www.infoq.com/presentations/).
