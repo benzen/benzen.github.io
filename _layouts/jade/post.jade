@@ -1,6 +1,9 @@
 !!! 5
 html
   head
+    script.
+      var disqus_identifier = "{{page.id}}";
+
     include includes/head.jade
 
     title Benzen - {{ page.title }}
@@ -12,7 +15,7 @@ html
           i.fa.fa-home.fa-lg&nbsp;
         | {{page.title }}&nbsp;
         small
-          a(href='{{ permalink }}#disqus_thread', data-disqus-identifier="{{permalink}}")
+          a(href='{{ permalink }}')
             i.fa.fa-link&nbsp;
           | publié le: {{page.date | date:" %F"}}
       ul.list-inline(style='display: inline-block;')

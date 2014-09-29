@@ -2,6 +2,7 @@
 html
   head
     include includes/head.jade
+    include includes/discus_counter.jade
   body
     .container
       .page-header
@@ -20,10 +21,14 @@ html
       ul.list-unstyled {% for post in site.posts %}
         li.post-divider
           h2
-            a(href='{{ post.url }}#disqus_thread', data-disqus-identifier="{{permalink}}") {{ post.title }}&nbsp;
+            a(href='{{ post.url }}') {{ post.title }}&nbsp;
             | {% for tag in post.tags %}
             span.badge {{tag}}
             | {% endfor %}
+
+            span.badge.comments-counter
+              a(href='{{ post.url }}', data-disqus-identifier="{{post.id}}")
+
           p
             | {{post.excerpt}}
         | {% endfor %}

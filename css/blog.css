@@ -1,7 +1,12 @@
 .post-divider:not(:last-child) {
   border-bottom: 1px solid #eee;
 }
-
 .badge{
   margin: 3px;
+}
+.comments-counter {
+  background-color: #428bca;
+}
+.comments-counter a{
+  color: white;
 }
