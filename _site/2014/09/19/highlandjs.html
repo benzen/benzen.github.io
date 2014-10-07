@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      var disqus_identifier = "/2014/09/19/highlandjs";
+      
+    </script>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <script src="/js/jquery.js" charset="utf-8"></script>
+    <script src="/js/bootstrap.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="/css/pygments.css">
+    <link rel="stylesheet" type="text/css" href="/css/blog.css">
+    <script>
+      var blogUrl = "benzen.github.io";
+      if(window.location.origin.indexOf(blogUrl) > -1){
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-55046322-1', 'auto');
+        ga('send', 'pageview');
+      }
+    </script>
+    <title>Benzen - Highland.js</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1><a href="/"><i class="fa fa-home fa-lg">&nbsp;</i></a>Highland.js&nbsp;<small><a href=""><i class="fa fa-link">&nbsp;</i></a>publié le:  2014-09-19</small></h1>
+      <ul style="display: inline-block;" class="list-inline">
+        <li class="badge">js</li>
+        <li class="badge">library</li>
+        <li class="badge">trial</li>
+        <li class="badge">stream</li>
+        <li class="badge">promise</li>
+        <li class="badge">callback</li>
+      </ul><p>Entre les évènements de souris et de clavier, les callbacks,
+les promesses, les itérateurs et les streams le petit monde du JS offre
+beaucoup de modèle de programmation qui sont tous proches mais elle ne sont pas
+identique et surtout elles ne sont pas toutes compatibles.
+Ce qui veut dire qu&#39;enchainer les unes derrière les autres ca peut vite devennir
+l&#39;enfer.</p>
+
+<h1> Ne pas faire ce que l&#39;on veux, des fois c&#39;est cool</h1>
+
+<p>Je regarde beaucoup de conférences, la plus part du temps sur
+<a href="http://www.infoq.com/presentations/">InfoQ</a>.</p>
+
+<p>L&#39;autre jour j&#39;ai vu une conférence conjointe entre un gars de
+Microsoft et un autre de Netflix
+(<a href="http://www.infoq.com/presentations/reactive-programming-netflix">Reactive programming</a>).
+Ils présentaient un framework qui permet de traiter tous les types d&#39;événements
+de la même manière. Que ce soit des clics de souris, des touches de clavier,
+des requêtes asynchrones ou de la traversée de liste, ils proposent de travailler
+ces évènements avec des opérateurs que l&#39;on est habitué de voir sur des listes,
+ genre <code>find</code>, <code>map</code>, etc.</p>
+
+<p>Pour ce faire on wrap nos sources d&#39;évènements avec les objets de l&#39;api pour standardiser
+l&#39;api avec laquelle on va consommer ces évènements. D&#39;après ce qui est dit dans la
+présentation, en arrière l&#39;api crée un mix entre les patterns
+[observateur](http://fr.wikipedia.org/wiki/Observateur<em>(patron</em>de_conception) et
+ <a href="http://fr.wikipedia.org/wiki/It%C3%A9rateur">itérateur</a>. C&#39;est ce qu&#39;ils
+ appellent le <a href="http://en.wikipedia.org/wiki/Functional_reactive_programming">Functional Reactive Programming</a>.</p>
+
+<p>Ils ont mis en place ces idées dans une libraire. Puis cette librairie a été porté
+dans différent langage, comme en atteste <a href="https://github.com/Reactive-Extensions">leur compte github</a>.
+Comme c&#39;est Microsoft qui est
+en arrière de ce projet l&#39;api qui est proposé utilise des noms à la
+<a href="http://fr.wikipedia.org/wiki/Language_Integrated_Query">LINQ</a>.</p>
+
+<p>J&#39;ai commencé à lire la <a href="http://reactive-extensions.github.io/RxJS/">documentation</a>
+disponible pour le portage JS de cette libraire. Puis j&#39;ai cherché d&#39;autres
+sources d&#39;info plus détaillées. Et je suis tombé
+ sur <a href="http://highlandjs.org/">Highland.js</a> de
+ <a href="https://twitter.com/caolan">@caolan</a> qui est aussi l&#39;auteur
+ de <a href="https://github.com/caolan/async">Async.js</a>.</p>
+
+<p>Grossièrement l&#39;idée est la même que pour RxJs. Sauf qu&#39;il y arrive par une logique
+de réunification. De ce fait là, Highland.js propose une api qui supporte plein de sources d&#39;évènement.</p>
+
+<p>Les sources supportées sont:</p>
+
+<ul>
+<li>Promesses ES6 / jQuery</li>
+<li>Callback node style</li>
+<li>Event Emitter / element jquerifié</li>
+<li>Stream Node</li>
+</ul>
+
+<p>Parmi les sources d&#39;inspiration <a href="https://twitter.com/caolan">@caolan</a> mentionne
+<a href="https://github.com/lodash/lodash">lowdash</a> et <a href="https://github.com/jashkenas/underscore">underscore</a>.</p>
+
+<p>J&#39;avais un feeling plus agréable avec Highland.js qu&#39;avec Rx.js. Alors j&#39;ai changé
+d&#39;idée et j&#39;ai commencé à jouer avec Highland.</p>
+
+<h1>Sur les terres des Highlands</h1>
+
+<p>On comprend toujours mieux avec les mains dans le cambouis. Alors je me suis fait
+un projet jouet <a href="https://github.com/benzen/demo-highland">ici</a>.</p>
+
+<p>Le layout, très simple. Un mini script bash pour:</p>
+
+<ul>
+<li>installer les dépendances bower</li>
+<li>compiler les <a href="http://jade-lang.com/">jade</a></li>
+<li>placer les choses au bon endroit</li>
+<li>lancer un <a href="https://github.com/nodeapps/http-server">http-server</a></li>
+</ul>
+
+<h2>Premier coup d&#39;épée</h2>
+
+<p>Droit au but, jetez un oeil à <a href="https://github.com/benzen/demo-highland/blob/8580234102c287b94a5493db4f881593c5146f90/src/index.jade">ceci</a></p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"> <span class="nx">highland</span><span class="p">(</span><span class="s1">&#39;keyup&#39;</span><span class="p">,</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#fld&#39;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">debounce</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">latest</span><span class="p">()</span>
+  <span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">){</span> <span class="k">return</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#fld&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">());</span> <span class="p">})</span>
+  <span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">encodedSearchTerms</span><span class="p">){</span> <span class="k">return</span> <span class="nx">highland</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">(</span><span class="s2">&quot;search.html?param=&quot;</span><span class="o">+</span><span class="nx">encodedSearchTerms</span><span class="p">));</span> <span class="p">})</span>
+  <span class="p">.</span><span class="nx">merge</span><span class="p">()</span>
+  <span class="p">.</span><span class="nx">errors</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">push</span><span class="p">){</span> <span class="nx">push</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{});</span> <span class="p">})</span>
+  <span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">){</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#content&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">})</span>
+</code></pre></div>
+<p>Le processus est super simple, une fois que l&#39;on a compris le principe.
+Il y a trois types d&#39;opérateurs avec highland:</p>
+
+<ul>
+<li>des sources typiquement <code>highland(whatEver)</code></li>
+<li>des aspirateurs de valeurs comme <code>.each(function(){})</code>`</li>
+<li>des tuyaux comme <code>.map()</code></li>
+</ul>
+
+<p>Chaque appel chainé va ajouter une opération au pipeline, sauf le dernier.
+Comme le dernier appel est un <em>apirateur</em>, il va aspirer des valeurs immédiatement.
+Les opérations intermédiaires sont <em>lazy</em>.</p>
+
+<p>Donc ce que l&#39;on fait dans ce bloc de code:</p>
+
+<ol>
+<li>Définit une source basée sur les évènements <code>keyup</code> du champ <code>#fld</code></li>
+<li>Quand une nouvelle valeur arrive, on attend 1000ms avant de la pousser dans le pipe,
+si une autre valeur arrive entre temps, on l’écarte et on prend la nouvelle valeur à sa place.</li>
+<li>Seule la dernière est conservée</li>
+<li>Grosse surprise, on applique une fonction sur chaque valeur, on retourne le tout dans le stream</li>
+<li>Avec chaque valeur, on crée un nouveau stream qui prend sa source dans
+une requête ajax vers le backend</li>
+<li>En cas d&#39;erreur quelque pars dans le pipe on s&#39;arrête</li>
+<li>On fusionne toutes les stream dans le stream en un seul stream</li>
+<li>Finalement pour chaque valeur du stream (qui vont être des résultats de call AJAX), on prend le résultat
+et on l&#39;affiche dans un div de la page</li>
+</ol>
+
+<p>Écrire cela la première fois est loin d&#39;être facile.
+Par contre, je trouve le résultat plutôt agréable.
+De plus, j&#39;ai choisi de faire mes tests avec du js juste pour simplifier
+la loop de feedback. Mais avec une syntaxe coffeescript ça devient fou:</p>
+<div class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">highland</span> <span class="s">&#39;keyup&#39;</span><span class="p">,</span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;#fld&#39;</span><span class="p">)</span>
+ <span class="p">.</span><span class="nx">debounce</span> <span class="mi">1000</span>
+ <span class="p">.</span><span class="nx">latest</span><span class="p">()</span>
+ <span class="p">.</span><span class="nx">map</span> <span class="nf">(event)-&gt;</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;#fld&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">())</span>
+ <span class="p">.</span><span class="nx">map</span> <span class="nf">(encodedSearchTerms)-&gt;</span> <span class="nx">highland</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">(</span><span class="s">&quot;search.html?param=&quot;</span><span class="o">+</span><span class="nx">encodedSearchTerms</span><span class="p">))</span>
+ <span class="p">.</span><span class="nx">merge</span><span class="p">()</span>
+ <span class="p">.</span><span class="nx">errors</span> <span class="nf">(err, push)-&gt;</span> <span class="nx">push</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{})</span>
+ <span class="p">.</span><span class="nx">each</span> <span class="nf">(result)-&gt;</span> <span class="nx">$</span><span class="p">(</span><span class="s">&#39;#content&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+</code></pre></div>
+<h2>The Quickening</h2>
+
+<p>On avance un peu. On va regarder <a href="https://github.com/benzen/demo-highland/blob/16eecb213635bbe953662a0a11ddc05c30c7bb1b/src/index.jade">ici</a></p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">counter</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">click1</span> <span class="o">=</span> <span class="nx">highland</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;button#btn1&#39;</span><span class="p">));</span>
+<span class="kd">var</span> <span class="nx">click2</span> <span class="o">=</span> <span class="nx">highland</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;button#btn2&#39;</span><span class="p">));</span>
+<span class="nx">highland</span><span class="p">([</span><span class="nx">click1</span><span class="p">,</span><span class="nx">click2</span><span class="p">])</span>
+  <span class="p">.</span><span class="nx">merge</span><span class="p">()</span>
+  <span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#score-board&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="s2">&quot;&lt;p&gt;&quot;</span> <span class="o">+</span> <span class="nx">counter</span><span class="o">++</span> <span class="o">+</span><span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Ici on travaille avec deux sources asynchrones. Les deux évènements clic peuvent se produire
+en même temps ou l&#39;un après l&#39;autre. Peu importe. Les deux streams qui wrap les sources de clic
+sont mergé ensemble.</p>
+
+<p>C&#39;est comme avoir un Y en plomberie. On fusionne deux sources en une seule.
+Et enfin le <code>.each()</code> permet de consommer le nouveau flux et de travailler avec ses valeurs.</p>
+
+<h2>The final dimension</h2>
+
+<p>On avait un merge, on va travailler avec un fork qui fait basiquement l&#39;inverse.
+On part d&#39;un flux que l&#39;on va diviser en deux.</p>
+
+<p>Mais un fork ne va pas séparer les évènements, les deux stream vont avoir le même contenu.
+De plus pour être certain que personne ne manque de contenu, tous les flux qui
+viennent d&#39;un fork s&#39;attendent entre eux pour vraiment commencer à consommer leur source.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">304</span><span class="p">,</span><span class="mi">204</span><span class="p">,</span><span class="mi">432</span><span class="p">,</span><span class="mi">432</span><span class="p">,</span><span class="mi">432</span><span class="p">,</span><span class="mi">432</span><span class="p">,</span><span class="mi">432</span><span class="p">,</span><span class="mi">432121</span><span class="p">,</span><span class="mi">543</span><span class="p">,</span><span class="mi">543</span><span class="p">,</span><span class="mi">5432523</span><span class="p">,</span><span class="mi">432</span><span class="p">,</span><span class="mi">321</span><span class="p">,</span><span class="mi">321</span><span class="p">,</span><span class="mi">432654</span><span class="p">,</span><span class="mi">654</span><span class="p">,</span><span class="mi">765</span><span class="p">,</span><span class="mi">231543</span><span class="p">,</span><span class="mi">543765</span><span class="p">,</span><span class="mi">765432</span><span class="p">,</span><span class="mi">543</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nx">highland</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">s1</span> <span class="o">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">fork</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">s2</span> <span class="o">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">fork</span><span class="p">();</span>
+<span class="nx">s1</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="p">})</span>
+  <span class="p">.</span><span class="nx">consume</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">push</span><span class="p">,</span> <span class="nx">next</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">x</span> <span class="o">===</span> <span class="nx">highland</span><span class="p">.</span><span class="nx">nil</span><span class="p">){</span>
+      <span class="nx">push</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="nx">x</span><span class="p">);</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;even says&quot;</span><span class="o">+</span><span class="nx">x</span><span class="p">);</span>
+      <span class="nx">push</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="nx">x</span><span class="p">);</span>
+      <span class="nx">next</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}).</span><span class="nx">resume</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;s1 is started&quot;</span><span class="p">)</span>
+<span class="nx">s2</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">})</span>
+  <span class="p">.</span><span class="nx">consume</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">push</span><span class="p">,</span> <span class="nx">next</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">x</span> <span class="o">===</span> <span class="nx">highland</span><span class="p">.</span><span class="nx">nil</span><span class="p">){</span>
+      <span class="nx">push</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="nx">x</span><span class="p">);</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;odd says&quot;</span><span class="o">+</span><span class="nx">x</span><span class="p">);</span>
+      <span class="nx">push</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="nx">x</span><span class="p">);</span>
+      <span class="nx">next</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}).</span><span class="nx">resume</span><span class="p">();</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;s2 is started&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Ici un crée deux copies du flux initial. Pour l&#39;un on va filtrer les nombres pairs,
+pour l&#39;autre les impaires(on rejette les pairs du flux).
+Puis pour chacun on va préparer un <code>.consume()</code>.
+Contrairement au <code>.each()</code>, <code>.consume()</code> n&#39;aspire pas immédiatement les valeurs.</p>
+
+<p>De plus <code>.consume()</code> offre plus de souplesse, par exemple on peut rejeter
+ une valeur du stream. En contrepartie, la fonction que l&#39;on passe à
+  <code>.consume()</code> est pas mal plus complexe.</p>
+
+<p>On découvre ici le <code>higland.nil</code>, c&#39;est un peut l&#39;équivalent de
+la liste vide en <a href="http://fr.wikipedia.org/wiki/Lisp">LISP</a>, c&#39;est un marqueur de fin
+de stream.</p>
+
+<p><code>.consume()</code> reçoit aussi deux fonction, <code>push</code> et <code>next</code>. <code>push</code> permet de
+remettre une valeur dans le pipe alors que <code>next</code> permet de déclarer que le traitement
+du flux d&#39;entrée est terminé.</p>
+
+<h1>Mon petit avis</h1>
+
+<p>Pour l&#39;instant, je n&#39;ai pas vu de problème avec mon utilisation.
+D&#39;après ce que j&#39;ai vu il y a un petite liste de demande sur le bugtracker, mais
+ça à plus l&#39;air d&#39;être des propositions d&#39;amélioration. C&#39;est donc plutôt bon signe.</p>
+
+<p>À ce jour il me semble que le code produit avec cette librairie est assez clair et
+relativement puissant. Reste à voir si en situation réelle on pense à sortir <em>highland.js</em>
+de notre utility belt.</p>
+
+<h1>Pour la prochaine fois</h1>
+
+<p>La prochaine fois que je touche à <em>Highland.js</em> je vais essayer de mieux
+comprendre le concept en arrière du <em>back-pressure</em> dont il est question dans
+ la documentation.</p>
+
+<p>Pour l’instnant je ne l’ai travailler que dans le browser, mais highland.js est
+ prévu pour fonctionner aussi dans node. Donc je voudrais aussi voir ce que cela
+ donne dans ce contexte la.</p>
+
+      <div id="disqus_thread">
+        <script type="text/javascript">
+          /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+          var disqus_shortname = 'benzen'; // required: replace example with your forum shortname
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the<a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by<span class="logo-disqus">Disqus</span></a>
+      </div>
+    </div>
+  </body>
+</html>

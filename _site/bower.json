@@ -1,0 +1,20 @@
+{
+  "name": "benzen.github.io",
+  "version": "0.0.0",
+  "homepage": "https://benzen.github.io",
+  "authors": [
+    "Benjamin Dreux <benjamin.dreux@code3.ca>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "font-awesome": "~4.2.0"
+  }
+}
