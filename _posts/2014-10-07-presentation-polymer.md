@@ -1,5 +1,7 @@
 ---
 tags: presentation polymer
+title: Présentation polymer
+layout: post
 ---
 À [Code 3](http://code3.ca) on attache beaucoup d'importance à la formation de nos
 membres. Se former c'est bien, mais en faire profiter les autres c'est encore mieux.
