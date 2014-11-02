@@ -17,9 +17,9 @@ Présentation du projet
 -----------------------
 
 Mon ami [@Stephan](https://www.facebook.com/stephane.seners) est un peu étrange. Il lui arrive souvent de perdre ses mots.
-Mais quand ça lui arrive il à une technique très _personel_. Pour s'en sortir.
+Mais quand ça lui arrive il a une technique très _personelle_. Pour s'en sortir.
 Il mime le mot qu'il cherche. Sauf que les mimes qu'il fait n'ont rien à voir avec
-ce que l'on est habitué de voir. Par exemple pour téléphone cellulaire ça donne ceci, en plus c'est lui sur la vidéo:
+ce que l'on est habitué de voir. Par exemple, pour téléphone cellulaire ça donne ceci, en plus c'est lui sur la vidéo:
 
 <center>
   <video width="400px" controls>
@@ -28,8 +28,8 @@ ce que l'on est habitué de voir. Par exemple pour téléphone cellulaire ça do
   <video>
 </center>
 
-En voyant ça, on se dit tous que ça n'a aucun sens. Mais, là où ça devient intéressant,
-c'est que ces mimes bizarres, ils les réutilisent. À chaque fois, qu'il veut dire téléphone
+En voyant cela, on se dit tous que ça n'a aucun sens. Mais, là où ça devient intéressant,
+c'est que ces mimes bizarres, il les réutilise. À chaque fois, qu'il veut dire téléphone
 cellulaire, il refait le même signe. Du coup, ça devient intéressant d'avoir un
 dictionnaire pour décoder ses mimes. Et pour garder une trace des mimes connus.
 
@@ -38,12 +38,12 @@ Xcode cette bête étrange
 
 Xcode c'est l'[IDE](http://fr.wikipedia.org/wiki/Environnement_de_d%C3%A9veloppement)
 qui ne vient pas avec OSX, mais que tout développeur aura installé sur son poste
-pour pouvoir travailler avec ses outils habituels, peut-être sans jamais
+pour pouvoir travaillé avec ses outils habituels, peut-être sans jamais
 se servir de l'IDE [en tant que tel](https://www.youtube.com/watch?v=tSQDGOEWvqM).
 
 Première chose, oubliez vos préjugés d'un IDE [lent et laid](https://www.eclipse.org/).
 Xcode est l'IDE le plus rapide que j'ai vu.
-Évidemment il offre toute la panoplie de features que l'on peut attendre d'un IDE.
+Évidemment, il offre toute la panoplie de features que l'on peut attendre d'un IDE.
 
 * Coloration syntaxique (WAHOOUU)
 * Recherche dans le projet (quand même)
@@ -59,9 +59,9 @@ Une fois dans un nouveau projet on peut voir 4 catégories de fichier.
 * Des assets regroupés dans un fichier `images.xcassets`
 * Le story-board dans `Main.storyboard`
 
-Le premier n'a pas besoin d'explication. Les deux suivantes je n'y ai presque pas touché. Le troisième est assez cool, et va avoir besoin de pas mal d'attention.
+Le premier n'a pas besoin d'explications. Les deux suivantes, je n'y ai presque pas touché. Le troisième est assez cool, et va avoir besoin de pas mal d'attention.
 
-Le story-board c'est un builder visuel d'interface. Personne ne nous force à l'utiliser, on peut aussi construire l'interface avec du code. Je suppose que, comme tous les builder, en travaillant un peut plus avec, on va avoir une période de lune de miel. Puis quand on est assez familier avec, on fini par ne plus vouloir l'utiliser. Mais la première approche semble prometteuse.
+Le story-board c'est un builder visuel d'interface. Personne ne nous force à l'utiliser, on peut aussi construire l'interface avec du code. Je suppose que, comme tous les builders, en travaillant un peut plus avec, on va avoir une période de lune de miel. Puis, quand on est assez familier avec, on finit par ne plus vouloir l'utiliser. Mais, la première approche semble prometteuse.
 
 Dans le story-board, on va créer des écrans (des views controller ) en les remplissant de widgets. Le view controller est la fonctionnalité de base de l'écran, les widgets rajout un petit plus particulier au contexte.
 
@@ -118,7 +118,7 @@ Une petite note avant d'aller plus loin. Ici on va tout faire avec le storyboard
 Première vue
 -------------
 
-C'est parti. On crée le projet. Xcode propose plusieurs template d'application IOS et OSX.
+C'est parti. On crée le projet. Xcode propose plusieurs templates d'application IOS et OSX.
 On va au plus simple, `IOS single page app`. On choisit un nom, un name space, un langage (Swift)
 et le device sur lequel on veut déployer notre application. J'ai pris juste le iPhone pour ne
 pas avoir à gérer les différences de taille d'écran. Ensuite, on peut choisir un sens dans lequel
@@ -203,7 +203,7 @@ Si on n'y prête pas attention, la `SearchBar` se retrouvera après les mimes.
 On va ensuite ajouter une cellule prototype à notre `tableView`. Ce prototype va nous permettre de configurer ce qui
 sera affiché comme texte/ bouton/ comportement sur chacun des items de la liste.
 
-On a maintenant tout les morceaux qui sont en place pour mettre de donner tout le comportement que l'on veux
+On a maintenant tous les morceaux qui sont en place pour mettre de donner tout le comportement que l'on veux
 à notre vue.
 
 <center>
@@ -217,7 +217,7 @@ Formulaire
 
 On va ajouter une seconde vue dans notre `story-board`, la vue pour ajouter un nouveau mime. Ça sera un simple formulaire avec un champ de texte pour le nom du mime et un bouton pour choisir une vidéo dans la pellicule du téléphone.
 
-Les `ViewController` sont affichés comme des widgets dans la liste en bas à droite de l'écran. Donc il suffit de les dropper dans le story-board. On va prendre un view controller basique.
+Les `ViewController` sont affichés comme des widgets dans la liste en bas à droite de l'écran. Donc, il suffit de les droppers dans le story-board. On va prendre un view controller basique.
 
 La suite se passe de commentaire. On glisse des labels, un champ texte, un bouton.
 
@@ -233,7 +233,7 @@ Lien entre deux vues
 ------------------
 
 Pour faire un lien entre deux vues, il suffit de tendre un `Segue` entre deux View Controller.
-Dans notre cas on va sélectionner le bouton d'ajout. Dans la partie en haut à droite de Xcode,
+Dans notre cas, on va sélectionner le bouton d'ajout. Dans la partie en haut à droite de Xcode,
 on retrouve le menu suivant:
 
 <center>
@@ -279,7 +279,7 @@ d'une vue.
 Le UIImagePickerControllerDelegate permet d'ajouter un certain nombre de comportements relatifs aux choix d'image, en implémentant un mimumum de méthodes.
 le UINavigationControllerDelegate permet quant à lui d'avoir le comportement qui permet ne naviguer entre les vues sans trop s'en soucier.
 
-Ensuite on va ajouter une méthode pour sélectionner une vidéo dans la pellicule.
+Ensuite, on va ajouter une méthode pour sélectionner une vidéo dans la pellicule.
 
 ````swift
 func selectVideo(){
@@ -298,9 +298,9 @@ On précise aussi où seront pris les médias, dans la pellicule.
 On prendra aussi uniquement des vidéos, parce qu'on pourrait aussi prendre des photos.
 En mettant AllowsEditing à true on aurait la possibilité de sélectionner des sous-clips de nos vidéos.
 
-Maintenant on sait quoi faire lorsque l'on à un click sur notre bouton.
-Mais on a pas de lien entre l'évènement de click et cette fonction.
-Pour cela on va ajouter l'annotation `@IBAction` sur la fonction `selectVideo()`.
+Maintenant, on sait quoi faire lorsque l'on à un click sur notre bouton.
+Mais, on n'a pas de lien entre l'évènement de click et cette fonction.
+Pour cela, on va ajouter l'annotation `@IBAction` sur la fonction `selectVideo()`.
 Ceci va permettre de rendre visible la fonction au story-board et ainsi permettre de tracer un segue entre la fonction et le bouton.
 Seules les fonctions qui appartiennent à la classe qui gère une vue et qui est annotée avec `@IBAction` sont accessibles dans le story-board.
 
@@ -310,13 +310,13 @@ de cliquer sur la partie haute de la vue, puis de cliquer sur l'icône jaune à 
 ![Icone configuration de vue]( {{page.pathToImages}}/configuration-vue.png )
 </center>
 
-Cela va ouvrir la configuration de la vue en au à droite dans XCode. En mettant le nom de la classe de controller de cette vue dans le champ `class` on établit le lien.
+Cela va ouvrir la configuration de la vue en au à droite dans XCode. En mettant le nom de la classe de controller de cette vue dans le champ `class`, on établit le lien.
 <center>
 ![Lien view/controller]( {{page.pathToImages}}/class-vue.png )
 </center>
 
-Maintenant si on lance l'application, on peut voir qu'on peut aller dans la liste de vidéo du téléphone. Mais il ne se passe rien si on en sélectionne une.
-Pour cela on va ajouter une fonction dans notre controller.
+Maintenant, si on lance l'application, on peut voir qu'on peut aller dans la liste de vidéo du téléphone. Mais, il ne se passe rien si on en sélectionne une.
+Pour cela, on va ajouter une fonction dans notre controller.
 
 ```Swift
 func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: NSDictionary!){
@@ -326,12 +326,12 @@ func imagePickerController(picker: UIImagePickerController!, didFinishPickingMed
 }
 ```
 
-Cette méthode est définie dans le delegate `UIImagePickerControllerDelegate`. Elle est optionnelle, mais lorsqu'elle est présente, elle est appelée avec le picker (dans notre cas il s'agit du view controller courant) et une map d'info relative au fichier (p.ex. taille, format, URL...). Dans notre cas on va récupérer l'url de la vidéo sous forme d'une String pour la sauvegarder facilement et la réutiliser plus tard. Pour l'instant, cette fonction ne fait rien d'utile, mais quand on aura commencer à regarder la persistance, on la bonifiera.
+Cette méthode est définie dans le delegate `UIImagePickerControllerDelegate`. Elle est optionnelle, mais lorsqu'elle est présente, elle est appelée avec le picker (dans notre cas il s'agit du view controller courant) et une map d'info relative au fichier (p.ex. taille, format, URL...). Dans notre cas on va récupérer l'url de la vidéo sous forme d'une String pour la sauvegarder facilement et la réutiliser plus tard. Pour l'instant, cette fonction ne fait rien d'utile, mais quand on aura commencé à regarder la persistance, on la bonifiera.
 
 Pouvoir sélectionner des vidéos c'est bien, mais par défaut le simulateur n'a pas de vidéo. On va en ajouter une. Trouver ça quelque part. Par exemple la vidéo qui est en haut de cet article (sous forme plus facile à télécharger [ici]({{page.pathToVideos}}/mime-telephone.mp4) ). Ensuite il suffit de dropper le fichier sur le simulateur pendant qu'il tourne pour que la vidéo ouverte dans  dans le simulateur. Avec les contrôles qui sont disponibles dans le nouvel écran, on peut sauvegarder la vidéo dans la pellicule. Pour sortir du player/navigateur qui s'est ouvert, on cliquerait sur le bouton home, dans le simulateur on fait un
-`cmd+shift+h`. Si on relance l'application, LÀ on peut sélectionner notre vidéo.
+`cmd+shift+h`. Si on relance l'application, Là, on peut sélectionner notre vidéo.
 
-On a pas encore donné de comportement pour le bouton `Ajouter`, on va le faire
+On n'a pas encore donné de comportement pour le bouton `Ajouter`, on va le faire
 dans la prochaine section.
 
 TAG: [step-4]({{page.repository}}/tree/step-4)
@@ -339,7 +339,7 @@ TAG: [step-4]({{page.repository}}/tree/step-4)
 Persistence
 ------------
 
-Avant de chercher à persister nos mimes, on va commencer par choisir que'est ce que c'est un mime. On va se faire une petite classe `Model`/`Domain` appeler ça comme vous voulez bref une structure nommée pour standardiser les mimes.
+Avant de chercher à persister nos mimes, on va commencer par choisir qu'est ce que c'est un mime? On va se faire une petite classe `Model`/`Domain` appeler ça comme vous voulez bref une structure nommée pour standardiser les mimes.
 
 ```Swift
 class MimeModel{
@@ -349,7 +349,7 @@ class MimeModel{
 ```
 Rien de très excitant.
 
-On va aussi se faire un store, qui va conserver les Mimes une fois définis.
+On va aussi se faire un store, qui va conserver les mimes une fois définis.
 Partons d'une définition simpliste.
 
 ```Swift
@@ -376,16 +376,16 @@ class MimeStore {
 }
 ```
 
-En faisant cela, on a défini l'api de cette classe et on a un comportement basique. Évidemment après un redémarrage, on aura perdu notre liste. On va donc persister de manière un peu plus durable.
+En faisant cela, on a défini l'api de cette classe et on a un comportement basique. Évidemment, après un redémarrage, on aura perdu notre liste. On va donc persister de manière un peu plus durable.
 
 Plusieurs choix s'offrent à nous de manière native sur la plateforme. Pour des raisons que j'explique dans la section _Choix technologique_ j'ai choisit Sqlite, et plus particulièrement le module [SQliteDB](https://github.com/FahimF/SQLiteDB) de [@FahimF](https://github.com/FahimF).
 
-Pour utiliser SQliteDB, il faut copier les sources du projet dans notre projet, il semble qu'il n'y est pas vraiment de système de gestion de dépendances dans l'univers Swift Cocoa. Ce faisant, on remarquera qu'il y a un fichier `Bridging-Header.h`. Ce fichier permet de faire le lien entre les modules cocoa de notre application (SQliteDB) et les modules Swift (tout le reste). Pour qu'il soit utilisé dans le projet il aller dans le `Build Settings`, on y accède en cliquant sur le nom du projet en haut de l'explorateur de fichier dans XCode.
+Pour utiliser SQliteDB, il faut copier les sources du projet dans notre projet, il semble qu'il n'y est pas vraiment de système de gestion de dépendances dans l'univers Swift Cocoa. Ce faisant, on remarquera qu'il y a un fichier `Bridging-Header.h`. Ce fichier permet de faire le lien entre les modules cocoa de notre application (SQliteDB) et les modules Swift (tout le reste). Pour qu'il soit utilisé dans le projet, il aller dans le `Build Settings`, on y accède en cliquant sur le nom du projet en haut de l'explorateur de fichier dans XCode.
 On modifiera la valeur de `Objective-C briding header`, utiliser la recherche pour le trouver.
 
-Pendant que l'on est dans les `Build Settings`, on va aller dans les `Build phases`, le menu d'accoté. Et on va ajouter un lien vers une librairie. `libsqlite3.0.dylib` en l'occurrence. SQLiteDb permet de donner une interface Swift à SQlite, mais on a quand même besoin de SQLite.
+Pendant que l'on est dans les `Build Settings`, on va aller dans les `Build phases`, le menu d'accoté. Et, on va ajouter un lien vers une librairie. `libsqlite3.0.dylib` en l'occurrence. SQLiteDb permet de donner une interface Swift à SQlite, mais on a quand même besoin de SQLite.
 
-Malheureusement SQliteDB ne permet pas de créer une base programativement. On a donc besoin de créer cette base avec notre unique table ainsi.
+Malheureusement, SQliteDB ne permet pas de créer une base programativement. On a donc besoin de créer cette base avec notre unique table ainsi.
 
 ```
 $ sqlite3 data.db
@@ -452,13 +452,13 @@ var nomField: UITextField!
 ```
 
 La déclaration du champs `nomField` a deux particularités. Il est annoté `IBOutlet`
-et son type est suivi d'un !. L'annotation est la pour la même raison que les annotations  `IBAction` que l'on a vues un peut plus tôt, pour permettre de tracer des segue depuis et vers ce morceau de code. Le point d'exclamation est présent à cause du type imposé par IBOutlet. IBOutlet impose que le type de la variable annoté soit un type optionnel. Car la variable va être injectée, donc on ne sait pas quand elle sera définie et il se peut que l'on exécutât du code qui veuille accéder à cette variable avant cela.
+et son type est suivi d'un !. L'annotation est la pour la même raison que les annotations  `IBAction` que l'on a vues un peut plus tôt, pour permettre de tracer des segues depuis et vers ce morceau de code. Le point d'exclamation est présent à cause du type imposé par IBOutlet. IBOutlet impose que le type de la variable annoté soit un type optionnel. Car la variable va être injectée, donc on ne sait pas quand elle sera définie et il se peut que l'on exécutât du code qui veuille accéder à cette variable avant cela.
 
-En Swift les types optionnels sont notés de deux façons. `:type?` où `:type!`.
+En Swift, les types optionnels sont notés de deux façons. `:type?` où `:type!`.
 Le typage avec ? Démontre que le type est optionnel et que l'on peut obtenir
-une valeur vide ou une vraie valeur si l'on va chercher cette valeur. Par contre si l'on va chercher une valeur avec ! le programme peut s'arrêter de manière inattendue.
+une valeur vide ou une vraie valeur si l'on va chercher cette valeur. Par contre, si l'on va chercher une valeur avec ! le programme peut s'arrêter de manière inattendue.
 
-On va aussi ajouter deux fonctions, une qui sera exécuté quand le texte du champ nom sera changé, et une qui sera exécutée quand le bouton ajouter sera cliqué.
+On va aussi ajouter deux fonctions, une qui sera exécutée quand le texte du champ nom sera changé, et une qui sera exécutée quand le bouton ajouter sera cliqué.
 
 ```Swift
 @IBAction
@@ -473,9 +473,9 @@ func ajouterMime(){
 }
 ```
 
-Pour que tout cela fonctionne il reste à placer des segue entre onTextChange et le champ de texte, xcode va proposé plusieurs évènements on choisira `editing did end`. On placera aussi un segue entre `ajouterMime` et le bouton `Ajouter` et un dernier entre `nomField` et le champ de texte.
+Pour que tout cela fonctionne, il reste à placer des segues entre onTextChange et le champ de texte, xcode va proposé plusieurs évènements on choisira `editing did end`. On placera aussi un segue entre `ajouterMime` et le bouton `Ajouter` et un dernier entre `nomField` et le champ de texte.
 
-La dernière ligne de `ajouterMime` semble un peu spécial. Elle permet de retourner vers la vue précédente. Oui par ce que notre application utilise une navigation contrôler (et aussi parceque cette classe adhère au protocol `UINavigationControllerDelegate`)et que depuis la liste on a fait un `push` de la vue `AjouterMimeView`, donc la on demande au `NavigationController` de dépiler son historique.
+La dernière ligne de `ajouterMime` semble un peu spécial. Elle permet de retourner vers la vue précédente. Oui, par ce que notre application utilise une navigation contrôler (et aussi parceque cette classe adhère au protocol `UINavigationControllerDelegate`)et que depuis la liste on a fait un `push` de la vue `AjouterMimeView`, donc la on demande au `NavigationController` de dépiler son historique.
 
 
 TAG: [step-5]({{page.repository}}/tree/step-5)
@@ -485,7 +485,7 @@ Liste
 
 Jusqu'ici, on a une liste avec un prototype de cellule, mais one ne fait rien avec tout ça. Un peu poche.
 
-Pour corriger cela, très simple. On va ajouter deux mixin à notre classe `ListerMimeViewController`.
+Pour corriger cela, très simple. On va ajouter deux mixins à notre classe `ListerMimeViewController`.
 
 ```Swift
 class ListerMimeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
@@ -539,7 +539,7 @@ TAG: [step-6]({{page.repository}}/tree/step-6)
 Recherche
 -------------
 
-Avoir une belle grande liste de mime c'est cool. Mais moi, _personnellement_ je n'aime pas ça scroller pendant 1 minute. La barre de recherche à déjà été ajoutée avant. Donc il ne nous reste plus qu'a la brancher sur un mécanisme de recherche.
+Avoir une belle grande liste de mime c'est cool. Mais moi, _personnellement_ je n'aime pas ça scroller pendant 1 minute. La barre de recherche à déjà été ajoutée avant. Donc, il ne nous reste plus qu'a la brancher sur un mécanisme de recherche.
 
 Avec ce que l'on a mis en place dans les étapes précédentes on s'est facilité la vie.
 
@@ -550,7 +550,7 @@ On va ajouter une référence vers la barre de recherche dans la `ListerMimeView
 var searchBar: UISearchBar!
 ```
 
-Puis on modifie les méthodes de gestion de la liste pour se baser sur un sous ensemble de mime dont le nom match le texte dans la barre de recherche.
+Puis, on modifie les méthodes de gestion de la liste pour se baser sur un sous ensemble de mime dont le nom match le texte dans la barre de recherche.
 
 ```Swift
 func tableView( tableView: UITableView,
@@ -569,8 +569,8 @@ func tableView( tableView: UITableView,
 }
 ```
 
-Avec ceci la liste contiendra uniquement les mimes dont le nom match le continue de la barre de recherche. Mais si le contenu de la barre change, il ne se passe rien. Pour cela on va ajouter le delegate `UISearchBarDelegate`
-Ce delegate nous permet d'ajouter des méthodes qui seront appelées lors d'évènement spécifique.
+Avec ceci, la liste contiendra uniquement les mimes dont le nom match le continue de la barre de recherche. Mais, si le contenu de la barre change, il ne se passe rien. Pour cela, on va ajouter le delegate `UISearchBarDelegate`
+Ce delegate nous permet d'ajouter des méthodes qui seront appelées lors d'évènement spécifiques.
 
 ```Swift
 func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
@@ -588,11 +588,11 @@ TAG: [step-7]({{page.repository}}/tree/step-7)
 Player vidéo
 --------------
 
-Bon, maintenant on a une vraie liste de mime. Mais une fois que l'on ajoute un mime, avec sa vidéo, on ne peut pas la revoir. Ça, c'est dommage. On va corriger ça.
+Bon, maintenant on a une vraie liste de mimes. Mais, une fois que l'on ajoute un mime, avec sa vidéo, on ne peut pas la revoir. Ça, c'est dommage. On va corriger ça.
 
 Pour cela, on va ajouter une nouvelle vue dans notre Story-board, un `AVKitPlayerViewController`. Ensuite, on va tracer un segue depuis la cellule prototype de la liste, avec le triggered Segue `Selection` (pour que le lien se fasse lors d'une sélection de cellules) vers le Player vidéo. J'ai choisi le mode de transition modal, ça c'est celui qui donne le meilleur effet dans ce cas-ci.
 
-La transition peut maintenant se faire, mais le ployer ne sait pas quoi jouer quand on veut l'afficher. Pour cela il faut lui fournir l'url de notre vidéo. Pour faire ça, on va ajouter les deux méthodes suivantes.
+La transition peut maintenant se faire, mais le ployer ne sait pas quoi jouer quand on veut l'afficher. Pour cela, il faut lui fournir l'url de notre vidéo. Pour faire ça, on va ajouter les deux méthodes suivantes.
 
 ```Swift
 func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
@@ -620,7 +620,7 @@ import AVFoundation
 ```
 
 Si vous avez porté attention vous aurez remarqué qu'on parle d'identifiant de segue dans le code que l'on vient d'introduire.
-Mais on a jamais défini d'identifiant de segue. On va utiliser `playVideo` pour le segue entre la liste et le player. À cause d'un bug dans la plateforme, on va devoir en définir aussi sur les autres segue, même si ce sont des chaines vides, il faut en ajouter, et le supprimer sur tous les segues, pas de pleurnichage on a juste un segue à nommer et dénommer.
+Mais, on a jamais défini d'identifiant de segue. On va utiliser `playVideo` pour le segue entre la liste et le player. À cause d'un bug dans la plateforme, on va devoir en définir aussi sur les autres segue, même si ce sont des chaines vides, il faut en ajouter, et le supprimer sur tous les segues, pas de pleurnichage on a juste un segue à nommer et dénommer.
 
 Et voilà, on à une liste avec un player relié.
 
@@ -653,8 +653,8 @@ TAG: [step-9]({{page.repository}}/tree/step-9)
 Cacher la barre de recherche
 ---------------------------
 
-Ici c'est un petit nice to have que je veux ajouter.
-Je veux que la barre de recherche soit cachée par défaut et qu'il faille tirer la liste vers le bas pour l'afficher. C'est la que l'on peut comprendre la raison pour laquelle j'ai insisté sur le positionnement de la barre de recherche, TOUT en haut. On a placé la barre dans le header du tableView pour que sa position soit fixe et donc plus facile à cacher.
+Ici, c'est un petit nice to have que je veux ajouter.
+Je veux que la barre de recherche soit cachée par défaut et qu'il faille tirer la liste vers le bas pour l'afficher. C'est là, que l'on peut comprendre la raison pour laquelle j'ai insisté sur le positionnement de la barre de recherche, TOUT en haut. On a placé la barre dans le header du tableView pour que sa position soit fixe et donc plus facile à cacher.
 
 Voilà la méthode qui va permettre de cacher notre barre.
 
@@ -669,7 +669,7 @@ func hideSearchBar(){
     }
 }
 ```
-Ensuite, il suffit d'ajouter un appel à cette méthode au bon endroit. Par exemple lors que l'on parcoure le segue `playVideo` ou lorsque l'on va cliquer sur le bouton `cancel` de la barre de recherche ou encore quand la vue va apparaitre.
+Ensuite, il suffit d'ajouter un appel à cette méthode au bon endroit. Par exemple, lors que l'on parcoure le segue `playVideo` ou lorsque l'on va cliquer sur le bouton `cancel` de la barre de recherche ou encore quand la vue va apparaitre.
 
 ```Swift
 override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
@@ -692,7 +692,7 @@ override func viewDidLoad() {
 
 ```
 
-Et voilà l'application faite tout ce que je voulais.
+Et voilà, l'application faite tout ce que je voulais.
 
 Choix technologique
 ======================
@@ -700,7 +700,7 @@ Choix technologique
 Persistence (UserPreferences, core-data, sqlite)
 ------------------
 
-Vu la faible complexité de mon modèle de donnée, j'ai recherché le plus simple
+Vu la faible complexité de mon modèle de données, j'ai recherché le plus simple
 moyen de sauvegarder mes données. Comme j'étais en processus d'apprendre
 IOS j'ai orienté mes recherches uniquement sur les modules de persistance natifs.
 
@@ -721,8 +721,8 @@ Le troisième module qui est disponible nativement SQLite.
 Rien de très complexe ici, on connait tous SQL. SQLite est juste une base qui
 est tenue dans un fichier, idéal pour une base embarquée. Le seul point spécial
 c'est qu'il n'y a pas de module natif en Swift pour ça.
-Donc tout le monde a construit sa petite lib pour ne pas avoir à travailler
-tous les jours avec cocoa. J'ai essayé les modules suivantes:
+Donc, tout le monde a construit sa petite lib pour ne pas avoir à travailler
+tous les jours avec cocoa. J'ai essayé les modules suivants:
 
 * SwiftData
 * SQLiteDB
@@ -738,8 +738,8 @@ Avant de me lancer dans l'écriture de ce projet j'ai lu la description du langa
 
 _Ahh je connais tout ça .. Presque..._
 
-Après coup, je me rends compte que certains points sont mois évident ne sont pas aussi
-habituel qu'il n'y parait. Si vous voulez sauter dans Swift, regardez attentivement ces points
+Après coup, je me rends compte que certains points sont moins évident ne sont pas aussi
+habituels qu'il n'y parait. Si vous voulez sauter dans Swift, regardez attentivement ces points
 dans la doc du langage.
 
 1-La manière de déclarer des signatures me fait penser à OCaml. Mais ce n'est pas tout le monde qui
@@ -757,10 +757,10 @@ C'est rapide, ça aide vraiment, surtout pour ce qui est du story-board.
 
 Swift
 ------
-Le langage bien que pas particulièrement brillant pour des fonctionnalités particulières offre tout de même les blocs qui sont maintenant requis pour un langage de base, fonction anonyme entre autres. J'avoue ne pas avoir passé beaucoup de temps sur le langage. Pour moi ce que ce langage apporte c'est surtout de pouvoir faire des applis IOS sans saigner des yeux avec de l'objective C.
+Le langage bien que pas particulièrement brillant pour des fonctionnalités particulières offre tout de même les blocs qui sont maintenant requis pour un langage de base, fonction anonyme entre autres. J'avoue ne pas avoir passé beaucoup de temps sur le langage. Pour moi, ce que ce langage apporte c'est surtout de pouvoir faire des applis IOS sans saigner des yeux avec de l'objective C.
 
 La plateforme IOS
 -------------------
 
-Contrairement à ce que je pensais en commençant. La plateforme est très agréable à travailler. La communauté est grosse et dynamique, donc on trouve facilement le support dont on a besoin pour terminer une tâche.
-J'ai pris beaucoup de plaisir à faire cette petite application jouet. Surement que j'en ferrais d'autres.
+Contrairement à ce que je pensais en commençant, la plateforme est très agréable à travailler. La communauté est grosse et dynamique, donc on trouve facilement le support dont on a besoin pour terminer une tâche.
+J'ai pris beaucoup de plaisir à faire cette petite application jouet. Sûrement que j'en ferrais d'autres.
