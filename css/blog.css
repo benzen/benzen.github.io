@@ -10,3 +10,4 @@
 .comments-counter a{
   color: white;
 }
+.badge:empty { display: none; }

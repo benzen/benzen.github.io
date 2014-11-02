@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      var disqus_identifier = "/2014/10/16/IOS-swift-xcode-sont-dans-un-bateau";
+      
+    </script>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <script src="/js/jquery.js" charset="utf-8"></script>
+    <script src="/js/bootstrap.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="/css/pygments.css">
+    <link rel="stylesheet" type="text/css" href="/css/blog.css">
+    <script>
+      var blogUrl = "benzen.github.io";
+      if(window.location.origin.indexOf(blogUrl) > -1){
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-55046322-1', 'auto');
+        ga('require', 'displayfeatures');
+        ga('send', 'pageview');
+      }
+    </script>
+    <title>Benzen - Ios, Swift et XCode sont dans un bateau</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1><a href="/"><i class="fa fa-home fa-lg">&nbsp;</i></a>Ios, Swift et XCode sont dans un bateau&nbsp;<small><a href=""><i class="fa fa-link">&nbsp;</i></a>publié le:  2014-10-16</small></h1>
+      <ul style="display: inline-block;" class="list-inline">
+        <li class="badge">ios</li>
+        <li class="badge">swift</li>
+        <li class="badge">xcode</li>
+        <li class="badge">mobile</li>
+        <li class="badge">natif</li>
+      </ul><p>Malgré les gros progrès que HTML5 fait depuis quelques années, la tendance à faire des applications natives ne se dément pas. Que ce soit du côté de la plateforme IOS ou Android. Certaines raisons pour choisir les solutions natives sont assez évidentes, aspect beaucoup plus intégré, les assets sont déjà là au démarrage, réactivité.
+Mais le fait de devoir recommencer son application pour supporter les deux platformes est un point de blocage majeur. De plus, Apple et Google prennent une part non négligeable sur chaque vente.
+J&#39;ai voulu voir ce que Apple avait à offrir en échange de son 30% de vente.
+Pour ce faire j&#39;ai fait un projet jouet. Ce post vise à retracer les différentes étapes pour créer mon appli et vous donner un feeling de ce à quoi correspond l&#39;expérience de dev.</p>
+
+<h2>Présentation du projet</h2>
+
+<p>Mon ami <a href="https://www.facebook.com/stephane.seners">@Stephan</a> est un peu étrange. Il lui arrive souvent de perdre ses mots.
+Mais quand ça lui arrive il à une technique très <em>personel</em>. Pour s&#39;en sortir.
+Il mime le mot qu&#39;il cherche. Sauf que les mimes qu&#39;il fait n&#39;ont rien à voir avec
+ce que l&#39;on est habitué de voir. Par exemple pour téléphone cellulaire ça donne ceci, en plus c&#39;est lui sur la vidéo:</p>
+
+<p><center>
+  <video width="400px" controls>
+  <source src="/videos/2014-10-16-ios-swift-xcode-sont-dans-un-bateau/mime-telephone.mp4" type="video/mp4"/>
+  SI tu avais un navigateur à jour, tu verrais une belle video.
+  <video>
+</center></p>
+
+<p>En voyant ça, on se dit tous que ça n&#39;a aucun sens. Mais, là où ça devient intéressant,
+c&#39;est que ces mimes bizarres, ils les réutilisent. À chaque fois, qu&#39;il veut dire téléphone
+cellulaire, il refait le même signe. Du coup, ça devient intéressant d&#39;avoir un
+dictionnaire pour décoder ses mimes. Et pour garder une trace des mimes connus.</p>
+
+<h2>Xcode cette bête étrange</h2>
+
+<p>Xcode c&#39;est l&#39;<a href="http://fr.wikipedia.org/wiki/Environnement_de_d%C3%A9veloppement">IDE</a>
+qui ne vient pas avec OSX, mais que tout développeur aura installé sur son poste
+pour pouvoir travailler avec ses outils habituels, peut-être sans jamais
+se servir de l&#39;IDE <a href="https://www.youtube.com/watch?v=tSQDGOEWvqM">en tant que tel</a>.</p>
+
+<p>Première chose, oubliez vos préjugés d&#39;un IDE <a href="https://www.eclipse.org/">lent et laid</a>.
+Xcode est l&#39;IDE le plus rapide que j&#39;ai vu.
+Évidemment il offre toute la panoplie de features que l&#39;on peut attendre d&#39;un IDE.</p>
+
+<ul>
+<li>Coloration syntaxique (WAHOOUU)</li>
+<li>Recherche dans le projet (quand même)</li>
+<li>Validation de syntaxe et de type</li>
+<li>autocomplétion</li>
+<li>Documentation des fonctions</li>
+<li>Saut à la définition d&#39;un type ou d&#39;une fonction</li>
+</ul>
+
+<p>Une fois dans un nouveau projet on peut voir 4 catégories de fichier.</p>
+
+<ul>
+<li>les fichiers de code</li>
+<li>Le fichier de slash screen <code>LaunchScreen.xib</code></li>
+<li>Des assets regroupés dans un fichier <code>images.xcassets</code></li>
+<li>Le story-board dans <code>Main.storyboard</code></li>
+</ul>
+
+<p>Le premier n&#39;a pas besoin d&#39;explication. Les deux suivantes je n&#39;y ai presque pas touché. Le troisième est assez cool, et va avoir besoin de pas mal d&#39;attention.</p>
+
+<p>Le story-board c&#39;est un builder visuel d&#39;interface. Personne ne nous force à l&#39;utiliser, on peut aussi construire l&#39;interface avec du code. Je suppose que, comme tous les builder, en travaillant un peut plus avec, on va avoir une période de lune de miel. Puis quand on est assez familier avec, on fini par ne plus vouloir l&#39;utiliser. Mais la première approche semble prometteuse.</p>
+
+<p>Dans le story-board, on va créer des écrans (des views controller ) en les remplissant de widgets. Le view controller est la fonctionnalité de base de l&#39;écran, les widgets rajout un petit plus particulier au contexte.</p>
+
+<p>On pige nos views controller et nos widgets dans cette liste, en bas à droite:</p>
+
+<p><center>
+  <img src="/images/2014-10-16-ios-swift-xcode-sont-dans-un-bateau/list-widget.png" alt="Liste de widget">
+</center></p>
+
+<p>Dans cette liste on retrouve un peu de tout.</p>
+
+<ul>
+<li>Labels</li>
+<li>boutons</li>
+<li>text field</li>
+<li>slider</li>
+<li>stepper</li>
+<li>progress bar</li>
+<li>table (qui est en fait une liste)</li>
+<li>collection view</li>
+<li>date-picker</li>
+<li>carte</li>
+<li>vue web</li>
+<li>contrôles de navigation</li>
+<li>bar de recherche</li>
+</ul>
+
+<p>Une fois que l&#39;on a assemblé à créer une vue qui nous plaît, on peut la lier à une deuxième avec
+des <code>Segue</code>. Ce sont les <code>Segue</code> qui vont définir les mouvements possibles pour l&#39;utilisateur.</p>
+
+<p>Chaque ViewController à une série de propriétés que l&#39;on peut manipuler via le story-board.</p>
+
+<p><center>
+  <img src="/images/2014-10-16-ios-swift-xcode-sont-dans-un-bateau/propriete-view-controller.png" alt="Liste de propiété d&#39;un view controller">
+</center></p>
+
+<h2>Simulateur</h2>
+
+<p>Quand on a fini d&#39;assembler notre vue, ou ajouter une fonctionnalité, on a envie de l&#39;essayer pour voir si tout fonctionne encore. Si le comportement est bien celui que l&#39;on imagine. Pour faire ça on peut soit devenir IOS developper, payer un 100 $ à Apple et pouvoir déployer sur des vrais téléphones. Ou bien lancer le simulateur qui vient avec XCode.</p>
+
+<p>Une icône play et une icône stop sont en haut à gauche à côté des boutons pour réduire la fenêtre et fermer l&#39;application. Si on clique sur play, un build part, j&#39;imagine que si j&#39;avais eu des tests il serait parti ensuite, et une interface de iPhone (ou de iPad) est présentée quand l&#39;application est prête à être lancée.</p>
+
+<p>Une fois que c&#39;est fait, on peut faire à peu près tout ce que l&#39;on veut dans le téléphone simulé. Aller dans la pellicule, lancer notre appli, en sortir, la relancer. Ajouter des images, des vidéos.</p>
+
+<p>Bref c&#39;est pratique et on va s&#39;en servir en masse.</p>
+
+<h2>Étape par Étape</h2>
+
+<p>On va y aller un objectif à la fois. Pour chacune des étapes, il va y avoir un tag dans le dépôt qui correspond à l&#39;étape que vous êtes en train de lire. Cela vous permettra de voir par vous même les différents éléments se mettre en place.</p>
+
+<p>Le projet est <a href="https://github.com/benzen/mimetionnaire-tuto">ici</a>.</p>
+
+<p>Une petite note avant d&#39;aller plus loin. Ici on va tout faire avec le storyboard, parceque c&#39;est plus simple pour commencer.</p>
+
+<h2>Première vue</h2>
+
+<p>C&#39;est parti. On crée le projet. Xcode propose plusieurs template d&#39;application IOS et OSX.
+On va au plus simple, <code>IOS single page app</code>. On choisit un nom, un name space, un langage (Swift)
+et le device sur lequel on veut déployer notre application. J&#39;ai pris juste le iPhone pour ne
+pas avoir à gérer les différences de taille d&#39;écran. Ensuite, on peut choisir un sens dans lequel
+l&#39;application va fonctionner. Pour faire ça simple, on prend juste <code>Portait</code>.
+Toujours pour la même raison, on va rendre notre application uniquement compatible avec une version
+précise de iPhone.
+Dans le story-board, on va décocher la cache <code>size classes</code>.</p>
+
+<p>On souhaite aussi que les déplacements dans l&#39;application soient contrôlés. Pour cela,
+on va inclure notre application dans un <code>Navigation Controller</code>.
+Pour faire cela, il faut:</p>
+
+<ol>
+<li>Sélectionner notre unique <code>View Controller</code></li>
+<li>Cliquer sur le menu <code>Editor</code></li>
+<li>Cliquer sur le sous-menu <code>Embed in</code></li>
+<li>Puis sur <code>Navigation Controller</code></li>
+</ol>
+
+<p>Une nouvelle vue sera ajoutée à gauche de celle que l&#39;on avait avant. Et toutes les vues qui seront liées directement ou indirectement au Navigation Controller auront une toolbar qui donnera des outils (p.ex. un bouton back) pour naviguer entre les différentes vues.</p>
+
+<p><center>
+  <img src="/images/2014-10-16-ios-swift-xcode-sont-dans-un-bateau/premier-etape.png" alt="Notre première vue">
+</center></p>
+
+<p>TAG: <a href="https://github.com/benzen/mimetionnaire-tuto/tree/step-1">step-1</a></p>
+
+<h2>Vue dynamique</h2>
+
+<p>Avoir une vue c&#39;est bien, mais si elle ne fait rien notre appli n&#39;est pas très utile.
+On va l&#39;étoffer avec un peu pour la rendre plus intéressante.</p>
+
+<p>Cette première vue va être notre liste de mime. On  va aussi avoir une barre de menu pour mettre
+un bouton <code>Add</code> pour aller vers la vue qui sera responsable de la création d&#39;un nouveau mime.
+Je suppose aussi que la liste va devenir longue et que nos utilisateurs ne veulent pas scroller la liste indéfiniment.
+Donc on ajoutera une barre de recherche aussi.</p>
+
+<p>L&#39;ordre dans lequel on ajoute les choses ne devrait pas être important.
+Toutefois, j&#39;ai remarqué que c&#39;est plus facile de faire les choses de haut en bas.</p>
+
+<p>Lorsque l&#39;on déplace un widget, on remarque que des guides apaisent pour
+aider à place le widget de manière relative à d&#39;autre élément.</p>
+
+<p>On va ajouter un bouton à notre <code>Navigation Bar</code>.  Les boutons qui vont dans les barres de menu sont les
+<code>Bar Button Item</code>, on en glisse un sur le côté droit de la barre.
+Par défaut le bouton affiche un texte, on va changer cela.
+Un certain nombre de boutons sont standard, par exemple pour
+une action de type ajout, on peut se contenter de changer le rôle du bouton, ce qui
+induit que l&#39;icône va changer.</p>
+
+<p><center>
+  <img src="/images/2014-10-16-ios-swift-xcode-sont-dans-un-bateau/change-button-type.png" alt="Changement de rôle de bouton">
+</center></p>
+
+<p>On va changer la valeur du champ <code>identifier</code> pour <code>add</code>.</p>
+
+<p>Ensuite, on ajoute le widget <code>table view</code> dans notre view controller, collé en dessous de la
+ toolbar en utilisant tout l&#39;espace disponible dans notre view controller.</p>
+
+<p>Puis on va chercher une barre de recherche. En fouillant la liste de widgets, on peut voir qu&#39;il y a deux widgets avec search dans leur nom.</p>
+
+<p><center>
+  <img src="/images/2014-10-16-ios-swift-xcode-sont-dans-un-bateau/search-widget.png" alt="Liste de widget de recherche">
+</center></p>
+
+<ul>
+<li><code>SearchBar</code> donne uniquement la barre de recherche.</li>
+<li><code>SearchBar and SearchDisplay</code> donne la barre et une zone pour afficher les résultats de la recherche.</li>
+</ul>
+
+<p>Comme on affiche déjà une liste en dessous, je ne vois pas pourquoi on s&#39;embêterait à avoir de la logique
+d&#39;affichage pour les résultats de recherches, qui de toute manière serait proche de notre logique d&#39;affichage des items
+de la liste des mimes.</p>
+
+<p>On place notre boîte de recherche en haut de la <code>tableView</code>. Avant de la lâcher, on fait bien attention d&#39;avoir une ligne bleue
+en haut de la <code>tableView</code>. De cette manière, on va placer notre <code>SearchBar</code> dans le <code>header</code> de la <code>tableView</code>.
+Ansi les autres éléments de la liste (les cellules qui contiendront nos mimes), vont être affiché en dessous.
+Si on n&#39;y prête pas attention, la <code>SearchBar</code> se retrouvera après les mimes.</p>
+
+<p>On va ensuite ajouter une cellule prototype à notre <code>tableView</code>. Ce prototype va nous permettre de configurer ce qui
+sera affiché comme texte/ bouton/ comportement sur chacun des items de la liste.</p>
+
+<p>On a maintenant tout les morceaux qui sont en place pour mettre de donner tout le comportement que l&#39;on veux
+à notre vue.</p>
+
+<p><center>
+  <img src="/images/2014-10-16-ios-swift-xcode-sont-dans-un-bateau/etape-deux.png" alt="Étape deux">
+</center></p>
+
+<p>TAG: <a href="https://github.com/benzen/mimetionnaire-tuto/tree/step-2">step-2</a></p>
+
+<h2>Formulaire</h2>
+
+<p>On va ajouter une seconde vue dans notre <code>story-board</code>, la vue pour ajouter un nouveau mime. Ça sera un simple formulaire avec un champ de texte pour le nom du mime et un bouton pour choisir une vidéo dans la pellicule du téléphone.</p>
+
+<p>Les <code>ViewController</code> sont affichés comme des widgets dans la liste en bas à droite de l&#39;écran. Donc il suffit de les dropper dans le story-board. On va prendre un view controller basique.</p>
+
+<p>La suite se passe de commentaire. On glisse des labels, un champ texte, un bouton.</p>
+
+<p>Voilà à quoi ressemble ma vue:</p>
+
+<p><center>
+  <img src="/images/2014-10-16-ios-swift-xcode-sont-dans-un-bateau/etape-trois.png" alt="Formulaire d&#39;ajout">
+</center></p>
+
+<p>TAG: <a href="https://github.com/benzen/mimetionnaire-tuto/tree/step-3">step-3</a></p>
+
+<h2>Lien entre deux vues</h2>
+
+<p>Pour faire un lien entre deux vues, il suffit de tendre un <code>Segue</code> entre deux View Controller.
+Dans notre cas on va sélectionner le bouton d&#39;ajout. Dans la partie en haut à droite de Xcode,
+on retrouve le menu suivant:</p>
+
+<p><center>
+  <img src="/images/2014-10-16-ios-swift-xcode-sont-dans-un-bateau/segue.png" alt="Création de segue">
+</center></p>
+
+<p>Avec un drag-and-drop, depuis <code>Triguered Segue Action</code> on va aller pointer notre seconde vue.
+Un petit menu apparait et nous propose plusieurs types de transitions.
+Prenons <code>show</code>. L&#39;animation va déclarer la vue courante vers la gauche et la nouvelle arrivera depuis la droite.
+Comme les dossiers dans OSX.</p>
+
+<p>Si on lance le simulateur, on va pouvoir cliquer sur notre bouton <code>Add</code> ce qui va nous faire
+changer de vue. Une fois dans la vue d&#39;ajout on est capable de revenir en arrière avec un bouton back</p>
+
+<p><center>
+  <img src="/images/2014-10-16-ios-swift-xcode-sont-dans-un-bateau/etape-quatre.png" alt="Premier segue">
+</center></p>
+
+<p>TAG: <a href="https://github.com/benzen/mimetionnaire-tuto/tree/step-4">step-4</a></p>
+
+<h2>VideoPicker</h2>
+
+<p>Dans la vue de création de mimes, on a un bouton pour sélectionner une vidéo.
+Mais ce bouton ne fait rien jusqu&#39;a maintenant.</p>
+
+<p>Pour faire ça on va avoir besoin de faire un peu de code (ENFIN).
+On va se créer une class Swift, que l&#39;on va appeler <code>AjouterMimeViewController</code>.</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">import</span> <span class="n">UIKit</span>
+<span class="k">import</span> <span class="n">MobileCoreServices</span>
+
+<span class="k">class</span> <span class="nl">AjouterMimeViewController</span><span class="p">:</span> <span class="bp">UIViewController</span><span class="p">,</span> <span class="bp">UIImagePickerControllerDelegate</span><span class="p">,</span> <span class="bp">UINavigationControllerDelegate</span><span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<p>Notre class hérite de UIViewController qui est la classe de base pour ce qui est de la gestion
+d&#39;une vue.
+Le UIImagePickerControllerDelegate permet d&#39;ajouter un certain nombre de comportements relatifs aux choix d&#39;image, en implémentant un mimumum de méthodes.
+le UINavigationControllerDelegate permet quant à lui d&#39;avoir le comportement qui permet ne naviguer entre les vues sans trop s&#39;en soucier.</p>
+
+<p>Ensuite on va ajouter une méthode pour sélectionner une vidéo dans la pellicule.</p>
+<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">func</span> <span class="nf">selectVideo</span><span class="p">(){</span>
+    <span class="k">var</span> <span class="n">ipController</span> <span class="o">=</span> <span class="bp">UIImagePickerController</span><span class="p">()</span>
+    <span class="n">ipController</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="nb">self</span>
+    <span class="n">ipController</span><span class="p">.</span><span class="n">sourceType</span> <span class="o">=</span> <span class="n">UIImagePickerControllerSourceType</span><span class="p">.</span><span class="n">SavedPhotosAlbum</span>
+    <span class="n">ipController</span><span class="p">.</span><span class="n">mediaTypes</span> <span class="o">=</span> <span class="bp">NSArray</span><span class="p">(</span><span class="nl">object</span><span class="p">:</span> <span class="n">kUTTypeMovie</span><span class="p">)</span>
+    <span class="n">ipController</span><span class="p">.</span><span class="n">allowsEditing</span> <span class="o">=</span> <span class="nb">false</span>
+
+    <span class="nb">self</span><span class="p">.</span><span class="n">presentViewController</span><span class="p">(</span><span class="n">ipController</span><span class="p">,</span> <span class="nl">animated</span><span class="p">:</span> <span class="nb">true</span><span class="p">,</span> <span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Dans cette méthode, on désigne la classe qui servira de delegate pour ceci, la classe courante.
+On précise aussi où seront pris les médias, dans la pellicule.
+On prendra aussi uniquement des vidéos, parce qu&#39;on pourrait aussi prendre des photos.
+En mettant AllowsEditing à true on aurait la possibilité de sélectionner des sous-clips de nos vidéos.</p>
+
+<p>Maintenant on sait quoi faire lorsque l&#39;on à un click sur notre bouton.
+Mais on a pas de lien entre l&#39;évènement de click et cette fonction.
+Pour cela on va ajouter l&#39;annotation <code>@IBAction</code> sur la fonction <code>selectVideo()</code>.
+Ceci va permettre de rendre visible la fonction au story-board et ainsi permettre de tracer un segue entre la fonction et le bouton.
+Seules les fonctions qui appartiennent à la classe qui gère une vue et qui est annotée avec <code>@IBAction</code> sont accessibles dans le story-board.</p>
+
+<p>On va donc connecter la vue et la classe <code>AjouterMimeViewController</code>. Il suffit d&#39;aller dans le story-board,
+de cliquer sur la partie haute de la vue, puis de cliquer sur l&#39;icône jaune à gauche.
+<center>
+<img src="/images/2014-10-16-ios-swift-xcode-sont-dans-un-bateau/configuration-vue.png" alt="Icone configuration de vue">
+</center></p>
+
+<p>Cela va ouvrir la configuration de la vue en au à droite dans XCode. En mettant le nom de la classe de controller de cette vue dans le champ <code>class</code> on établit le lien.
+<center>
+<img src="/images/2014-10-16-ios-swift-xcode-sont-dans-un-bateau/class-vue.png" alt="Lien view/controller">
+</center></p>
+
+<p>Maintenant si on lance l&#39;application, on peut voir qu&#39;on peut aller dans la liste de vidéo du téléphone. Mais il ne se passe rien si on en sélectionne une.
+Pour cela on va ajouter une fonction dans notre controller.</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">func</span> <span class="nf">imagePickerController</span><span class="p">(</span><span class="nl">picker</span><span class="p">:</span> <span class="bp">UIImagePickerController</span><span class="o">!</span><span class="p">,</span> <span class="n">didFinishPickingMediaWithInfo</span> <span class="nl">info</span><span class="p">:</span> <span class="bp">NSDictionary</span><span class="o">!</span><span class="p">){</span>
+    <span class="k">var</span> <span class="n">url</span> <span class="o">=</span> <span class="n">info</span><span class="p">.</span><span class="n">objectForKey</span><span class="p">(</span><span class="n">UIImagePickerControllerReferenceURL</span><span class="p">)</span> <span class="kt">as</span> <span class="bp">NSURL</span>
+    <span class="k">var</span> <span class="n">urlAsString</span> <span class="o">=</span> <span class="n">url</span><span class="p">.</span><span class="n">absoluteString</span><span class="o">!</span>
+    <span class="nb">self</span><span class="p">.</span><span class="n">dismissViewControllerAnimated</span><span class="p">(</span><span class="nb">true</span><span class="p">,</span> <span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Cette méthode est définie dans le delegate <code>UIImagePickerControllerDelegate</code>. Elle est optionnelle, mais lorsqu&#39;elle est présente, elle est appelée avec le picker (dans notre cas il s&#39;agit du view controller courant) et une map d&#39;info relative au fichier (p.ex. taille, format, URL...). Dans notre cas on va récupérer l&#39;url de la vidéo sous forme d&#39;une String pour la sauvegarder facilement et la réutiliser plus tard. Pour l&#39;instant, cette fonction ne fait rien d&#39;utile, mais quand on aura commencer à regarder la persistance, on la bonifiera.</p>
+
+<p>Pouvoir sélectionner des vidéos c&#39;est bien, mais par défaut le simulateur n&#39;a pas de vidéo. On va en ajouter une. Trouver ça quelque part. Par exemple la vidéo qui est en haut de cet article (sous forme plus facile à télécharger <a href="/videos/2014-10-16-ios-swift-xcode-sont-dans-un-bateau/mime-telephone.mp4">ici</a> ). Ensuite il suffit de dropper le fichier sur le simulateur pendant qu&#39;il tourne pour que la vidéo ouverte dans  dans le simulateur. Avec les contrôles qui sont disponibles dans le nouvel écran, on peut sauvegarder la vidéo dans la pellicule. Pour sortir du player/navigateur qui s&#39;est ouvert, on cliquerait sur le bouton home, dans le simulateur on fait un
+<code>cmd+shift+h</code>. Si on relance l&#39;application, LÀ on peut sélectionner notre vidéo.</p>
+
+<p>On a pas encore donné de comportement pour le bouton <code>Ajouter</code>, on va le faire
+dans la prochaine section.</p>
+
+<p>TAG: <a href="https://github.com/benzen/mimetionnaire-tuto/tree/step-4">step-4</a></p>
+
+<h2>Persistence</h2>
+
+<p>Avant de chercher à persister nos mimes, on va commencer par choisir que&#39;est ce que c&#39;est un mime. On va se faire une petite classe <code>Model</code>/<code>Domain</code> appeler ça comme vous voulez bref une structure nommée pour standardiser les mimes.</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">class</span> <span class="n">MimeModel</span><span class="p">{</span>
+    <span class="k">var</span> <span class="n">nom</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+    <span class="k">var</span> <span class="n">videoUrl</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Rien de très excitant.</p>
+
+<p>On va aussi se faire un store, qui va conserver les Mimes une fois définis.
+Partons d&#39;une définition simpliste.</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">class</span> <span class="n">MimeStore</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nl">store</span><span class="p">:</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">MimeModel</span><span class="o">&gt;</span>
+
+    <span class="k">init</span><span class="p">(){</span>
+        <span class="nb">self</span><span class="p">.</span><span class="n">store</span> <span class="o">=</span>  <span class="p">[]</span>
+    <span class="p">}</span>
+
+    <span class="k">func</span> <span class="n">addMime</span><span class="p">(</span><span class="nl">m</span> <span class="p">:</span><span class="n">MimeModel</span><span class="p">){</span>
+        <span class="nb">self</span><span class="p">.</span><span class="n">store</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">func</span> <span class="n">listMime</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">MimeModel</span><span class="o">&gt;</span><span class="p">{</span>
+        <span class="k">return</span> <span class="nb">self</span><span class="p">.</span><span class="n">store</span>
+    <span class="p">}</span>
+    <span class="k">func</span> <span class="n">removeMime</span><span class="p">(</span><span class="nl">nom</span> <span class="p">:</span><span class="n">String</span><span class="p">){</span>
+        <span class="nb">self</span><span class="p">.</span><span class="n">store</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">store</span><span class="p">.</span><span class="n">filter</span><span class="p">({</span> <span class="err">$</span><span class="mf">0.</span><span class="n">nom</span> <span class="o">!=</span> <span class="n">nom</span><span class="p">})</span>
+    <span class="p">}</span>
+    <span class="k">func</span> <span class="n">getMime</span><span class="p">(</span><span class="nl">nom</span> <span class="p">:</span><span class="n">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MimeModel</span><span class="p">{</span>
+        <span class="k">var</span> <span class="n">models</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">store</span><span class="p">.</span><span class="n">filter</span><span class="p">({</span> <span class="err">$</span><span class="mf">0.</span><span class="n">nom</span> <span class="o">==</span> <span class="n">nom</span><span class="p">})</span>
+        <span class="k">return</span> <span class="n">models</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>En faisant cela, on a défini l&#39;api de cette classe et on a un comportement basique. Évidemment après un redémarrage, on aura perdu notre liste. On va donc persister de manière un peu plus durable.</p>
+
+<p>Plusieurs choix s&#39;offrent à nous de manière native sur la plateforme. Pour des raisons que j&#39;explique dans la section <em>Choix technologique</em> j&#39;ai choisit Sqlite, et plus particulièrement le module <a href="https://github.com/FahimF/SQLiteDB">SQliteDB</a> de <a href="https://github.com/FahimF">@FahimF</a>.</p>
+
+<p>Pour utiliser SQliteDB, il faut copier les sources du projet dans notre projet, il semble qu&#39;il n&#39;y est pas vraiment de système de gestion de dépendances dans l&#39;univers Swift Cocoa. Ce faisant, on remarquera qu&#39;il y a un fichier <code>Bridging-Header.h</code>. Ce fichier permet de faire le lien entre les modules cocoa de notre application (SQliteDB) et les modules Swift (tout le reste). Pour qu&#39;il soit utilisé dans le projet il aller dans le <code>Build Settings</code>, on y accède en cliquant sur le nom du projet en haut de l&#39;explorateur de fichier dans XCode.
+On modifiera la valeur de <code>Objective-C briding header</code>, utiliser la recherche pour le trouver.</p>
+
+<p>Pendant que l&#39;on est dans les <code>Build Settings</code>, on va aller dans les <code>Build phases</code>, le menu d&#39;accoté. Et on va ajouter un lien vers une librairie. <code>libsqlite3.0.dylib</code> en l&#39;occurrence. SQLiteDb permet de donner une interface Swift à SQlite, mais on a quand même besoin de SQLite.</p>
+
+<p>Malheureusement SQliteDB ne permet pas de créer une base programativement. On a donc besoin de créer cette base avec notre unique table ainsi.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ sqlite3 data.db
+sqlite&gt; CREATE TABLE mime (nom text, videoUrl text);
+sqlite&gt;.q
+</code></pre></div>
+<p>On a maintenant un fichier <code>data.db</code> que l&#39;on va placer dans les sources de notre projet. On a besoin également de le déclarer dans Xcode pour qu&#39;elle soit copiée lorsque l&#39;on lancera le simulateur. Ça se passera dans `<code>Build Phases</code> sous <code>Copy bundle ressources</code>.</p>
+
+<p>Pour pouvoir faire des requêtes, il suffit de faire ceci</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">let</span> <span class="n">db</span> <span class="o">=</span> <span class="n">SQLiteDB</span><span class="p">.</span><span class="n">sharedInstance</span><span class="p">()</span>
+<span class="k">let</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;SELECT * FROM mime&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>On a tout les éléments pour réimplémenter notre store.</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">class</span> <span class="n">MimeStore</span><span class="p">{</span>
+    <span class="k">let</span> <span class="n">insert</span> <span class="o">=</span> <span class="s">&quot;INSERT INTO mime (nom, videoUrl) VALUES (?, ?);&quot;</span>
+    <span class="k">let</span> <span class="n">list</span> <span class="o">=</span> <span class="s">&quot;SELECT nom, videoUrl FROM mime;&quot;</span>
+    <span class="k">let</span> <span class="n">delete</span> <span class="o">=</span> <span class="s">&quot;DELETE FROM mime where nom=? and videoURL=?;&quot;</span>
+    <span class="k">let</span> <span class="n">find</span> <span class="o">=</span> <span class="s">&quot;SELECT nom, videoUrl FROM mime WHERE nom like ?;&quot;</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">db</span> <span class="o">=</span> <span class="n">SQLiteDB</span><span class="p">.</span><span class="n">sharedInstance</span><span class="p">()</span>
+
+    <span class="k">func</span> <span class="n">addMime</span><span class="p">(</span><span class="nl">mime</span><span class="p">:</span> <span class="n">MimeModel</span><span class="p">){</span>
+        <span class="k">let</span> <span class="n">err</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="n">insert</span><span class="p">,</span> <span class="nl">parameters</span><span class="p">:</span> <span class="p">[</span><span class="n">mime</span><span class="p">.</span><span class="n">nom</span><span class="p">,</span> <span class="n">mime</span><span class="p">.</span><span class="n">videoUrl</span><span class="p">])</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">err</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+            <span class="n">NSLog</span><span class="p">(</span><span class="s">&quot;ERROR during save of mime</span><span class="se">\n</span><span class="s">\(err)&quot;</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">func</span> <span class="n">listMime</span><span class="p">(</span><span class="nl">query</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">MimeModel</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="n">resultSet</span> <span class="o">=</span>  <span class="n">query</span><span class="o">!</span><span class="p">.</span><span class="n">isEmpty</span> <span class="o">?</span> <span class="n">db</span><span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="o">:</span> <span class="n">db</span><span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="n">find</span><span class="p">,</span> <span class="nl">parameters</span><span class="p">:[</span><span class="s">&quot;\(query!)%&quot;</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">resultSet</span><span class="p">.</span><span class="n">map</span> <span class="p">{</span>
+            <span class="p">(</span><span class="nl">row</span><span class="p">:</span><span class="n">SQLRow</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MimeModel</span> <span class="k">in</span>
+            <span class="k">let</span> <span class="n">nom</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s">&quot;nom&quot;</span><span class="p">]</span><span class="o">!</span><span class="p">.</span><span class="n">asString</span><span class="p">()</span>
+            <span class="k">let</span> <span class="n">videoUrl</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s">&quot;videoUrl&quot;</span><span class="p">]</span><span class="o">!</span><span class="p">.</span><span class="n">asString</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">MimeModel</span><span class="p">(</span><span class="nl">nom</span><span class="p">:</span><span class="n">nom</span><span class="p">,</span> <span class="nl">videoUrl</span><span class="p">:</span><span class="n">videoUrl</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">func</span> <span class="n">delete</span><span class="p">(</span><span class="nl">mime</span><span class="p">:</span> <span class="n">MimeModel</span><span class="p">){</span>
+        <span class="k">let</span> <span class="n">err</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="n">delete</span><span class="p">,</span> <span class="nl">parameters</span><span class="p">:</span> <span class="p">[</span><span class="n">mime</span><span class="p">.</span><span class="n">nom</span><span class="p">,</span> <span class="n">mime</span><span class="p">.</span><span class="n">videoUrl</span><span class="p">])</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">err</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+            <span class="n">NSLog</span><span class="p">(</span><span class="s">&quot;ERROR during deleting mime&quot;</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Pas plus compliqué que cela. On a maintenant un module de persitence fonctionnel.
+Pour valider qu&#39;il fonctionne, on va ajouter le comportement du bouton OK, dans le formulaire d&#39;ajout de mime.</p>
+
+<p>Pour cela on va définir des propriété <code>model</code> et <code>store</code> dans notre ViewController. On va aussi ajouter une propriété qui va représenter notre champ de texte.</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">let</span> <span class="nl">model</span><span class="p">:</span> <span class="n">MimeModel</span> <span class="o">=</span>  <span class="n">MimeModel</span><span class="p">()</span>
+<span class="k">let</span> <span class="nl">store</span><span class="p">:</span> <span class="n">MimeStore</span> <span class="o">=</span> <span class="n">MimeStore</span><span class="p">()</span>
+<span class="p">@</span><span class="kt">IBOutlet</span>
+<span class="k">var</span> <span class="nl">nomField</span><span class="p">:</span> <span class="bp">UITextField</span><span class="o">!</span>
+</code></pre></div>
+<p>La déclaration du champs <code>nomField</code> a deux particularités. Il est annoté <code>IBOutlet</code>
+et son type est suivi d&#39;un !. L&#39;annotation est la pour la même raison que les annotations  <code>IBAction</code> que l&#39;on a vues un peut plus tôt, pour permettre de tracer des segue depuis et vers ce morceau de code. Le point d&#39;exclamation est présent à cause du type imposé par IBOutlet. IBOutlet impose que le type de la variable annoté soit un type optionnel. Car la variable va être injectée, donc on ne sait pas quand elle sera définie et il se peut que l&#39;on exécutât du code qui veuille accéder à cette variable avant cela.</p>
+
+<p>En Swift les types optionnels sont notés de deux façons. <code>:type?</code> où <code>:type!</code>.
+Le typage avec ? Démontre que le type est optionnel et que l&#39;on peut obtenir
+une valeur vide ou une vraie valeur si l&#39;on va chercher cette valeur. Par contre si l&#39;on va chercher une valeur avec ! le programme peut s&#39;arrêter de manière inattendue.</p>
+
+<p>On va aussi ajouter deux fonctions, une qui sera exécuté quand le texte du champ nom sera changé, et une qui sera exécutée quand le bouton ajouter sera cliqué.</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="p">@</span><span class="kt">IBAction</span>
+<span class="k">func</span> <span class="n">onTextChange</span><span class="p">(){</span>
+    <span class="n">model</span><span class="p">.</span><span class="n">nom</span> <span class="o">=</span> <span class="n">nomField</span><span class="p">.</span><span class="n">text</span>
+<span class="p">}</span>
+
+<span class="p">@</span><span class="kt">IBAction</span>
+<span class="k">func</span> <span class="n">ajouterMime</span><span class="p">(){</span>
+    <span class="n">store</span><span class="p">.</span><span class="n">addMime</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">?</span><span class="p">.</span><span class="n">popToRootViewControllerAnimated</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Pour que tout cela fonctionne il reste à placer des segue entre onTextChange et le champ de texte, xcode va proposé plusieurs évènements on choisira <code>editing did end</code>. On placera aussi un segue entre <code>ajouterMime</code> et le bouton <code>Ajouter</code> et un dernier entre <code>nomField</code> et le champ de texte.</p>
+
+<p>La dernière ligne de <code>ajouterMime</code> semble un peu spécial. Elle permet de retourner vers la vue précédente. Oui par ce que notre application utilise une navigation contrôler (et aussi parceque cette classe adhère au protocol <code>UINavigationControllerDelegate</code>)et que depuis la liste on a fait un <code>push</code> de la vue <code>AjouterMimeView</code>, donc la on demande au <code>NavigationController</code> de dépiler son historique.</p>
+
+<p>TAG: <a href="https://github.com/benzen/mimetionnaire-tuto/tree/step-5">step-5</a></p>
+
+<h2>Liste</h2>
+
+<p>Jusqu&#39;ici, on a une liste avec un prototype de cellule, mais one ne fait rien avec tout ça. Un peu poche.</p>
+
+<p>Pour corriger cela, très simple. On va ajouter deux mixin à notre classe <code>ListerMimeViewController</code>.</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">class</span> <span class="nl">ListerMimeViewController</span><span class="p">:</span> <span class="bp">UIViewController</span><span class="p">,</span> <span class="bp">UITableViewDelegate</span><span class="p">,</span> <span class="bp">UITableViewDataSource</span>  <span class="p">{</span>
+</code></pre></div>
+<p><code>UITableViewDelegate</code> permet de gérer le comportement de la liste. <code>UITableViewDataSource</code> permet quand à lui de donner du contenu à notre liste.</p>
+
+<p><code>UITableViewDataSource</code> nous force à implémenter deux méthodes, il y en a d&#39;autres qui sont optionnels.</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">func</span> <span class="n">tableView</span><span class="p">(</span> <span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span>
+    <span class="n">cellForRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">UITableViewCell</span><span class="p">{</span>
+        <span class="k">var</span> <span class="n">cell</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="o">!</span><span class="p">.</span><span class="n">dequeueReusableCellWithIdentifier</span><span class="p">(</span><span class="s">&quot;cell&quot;</span><span class="p">)</span> <span class="kt">as</span> <span class="bp">UITableViewCell</span>
+
+        <span class="k">let</span> <span class="n">model</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">store</span><span class="p">.</span><span class="n">listMime</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">]</span>
+        <span class="n">cell</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">nom</span>
+        <span class="k">return</span> <span class="n">cell</span>
+
+<span class="p">}</span>
+<span class="k">func</span> <span class="n">tableView</span><span class="p">(</span> <span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span>
+    <span class="n">numberOfRowsInSection</span> <span class="nl">section</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">{</span>
+        <span class="k">return</span> <span class="n">store</span><span class="p">.</span><span class="n">listMime</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">).</span><span class="n">count</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>On ajoute aussi deux membres à notre classe pour pouvoir manipuler les éléments de cette vue. On fera aussi le lien entre le membre tableView et le widget dans la vue avec le Storyboard.</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="p">@</span><span class="kt">IBOutlet</span>
+<span class="k">var</span> <span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="o">!</span>
+<span class="k">let</span> <span class="n">store</span> <span class="o">=</span> <span class="n">MimeStore</span><span class="p">()</span>
+</code></pre></div>
+<p>On a aussi besoin de pluguer les membres dataStore et delegate du tableView sur notre <code>ListerMimeViewController</code>. On va modifier notre méthode <code>viewDidLoad</code> pour faire ce branchement.</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="kr">override</span> <span class="k">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nb">super</span><span class="p">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
+    <span class="c1">// Do any additional setup after loading the view, typically from a nib.</span>
+    <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="o">?</span><span class="p">.</span><span class="n">registerClass</span><span class="p">(</span><span class="bp">UITableViewCell</span><span class="p">.</span><span class="nb">self</span><span class="p">,</span> <span class="nl">forCellReuseIdentifier</span><span class="p">:</span> <span class="s">&quot;cell&quot;</span><span class="p">)</span>
+    <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="nb">self</span>
+    <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="p">.</span><span class="n">dataSource</span> <span class="o">=</span> <span class="nb">self</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Et voilà, notre liste est prête à recevoir les mimes du store.
+On peut le valider en créant des mimes.</p>
+
+<p>TAG: <a href="https://github.com/benzen/mimetionnaire-tuto/tree/step-6">step-6</a></p>
+
+<h2>Recherche</h2>
+
+<p>Avoir une belle grande liste de mime c&#39;est cool. Mais moi, <em>personnellement</em> je n&#39;aime pas ça scroller pendant 1 minute. La barre de recherche à déjà été ajoutée avant. Donc il ne nous reste plus qu&#39;a la brancher sur un mécanisme de recherche.</p>
+
+<p>Avec ce que l&#39;on a mis en place dans les étapes précédentes on s&#39;est facilité la vie.</p>
+
+<p>On va ajouter une référence vers la barre de recherche dans la <code>ListerMimeViewController</code>. Et on fera un lien avec le widget dans le story-board.</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="p">@</span><span class="kt">IBOutlet</span>
+<span class="k">var</span> <span class="nl">searchBar</span><span class="p">:</span> <span class="bp">UISearchBar</span><span class="o">!</span>
+</code></pre></div>
+<p>Puis on modifie les méthodes de gestion de la liste pour se baser sur un sous ensemble de mime dont le nom match le texte dans la barre de recherche.</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">func</span> <span class="n">tableView</span><span class="p">(</span> <span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span>
+    <span class="n">cellForRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">UITableViewCell</span><span class="p">{</span>
+        <span class="k">var</span> <span class="n">cell</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="o">!</span><span class="p">.</span><span class="n">dequeueReusableCellWithIdentifier</span><span class="p">(</span><span class="s">&quot;cell&quot;</span><span class="p">)</span> <span class="kt">as</span> <span class="bp">UITableViewCell</span>
+
+        <span class="k">let</span> <span class="n">model</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">store</span><span class="p">.</span><span class="n">listMime</span><span class="p">(</span><span class="n">searchBar</span><span class="p">.</span><span class="n">text</span><span class="p">)[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">]</span>
+        <span class="n">cell</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">nom</span>
+        <span class="k">return</span> <span class="n">cell</span>
+
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">tableView</span><span class="p">(</span> <span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span>
+    <span class="n">numberOfRowsInSection</span> <span class="nl">section</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">{</span>
+        <span class="k">return</span> <span class="n">store</span><span class="p">.</span><span class="n">listMime</span><span class="p">(</span><span class="n">searchBar</span><span class="p">.</span><span class="n">text</span><span class="p">).</span><span class="n">count</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Avec ceci la liste contiendra uniquement les mimes dont le nom match le continue de la barre de recherche. Mais si le contenu de la barre change, il ne se passe rien. Pour cela on va ajouter le delegate <code>UISearchBarDelegate</code>
+Ce delegate nous permet d&#39;ajouter des méthodes qui seront appelées lors d&#39;évènement spécifique.</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">func</span> <span class="nf">searchBar</span><span class="p">(</span><span class="nl">searchBar</span><span class="p">:</span> <span class="bp">UISearchBar</span><span class="p">,</span> <span class="n">textDidChange</span> <span class="nl">searchText</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="p">.</span><span class="n">reloadData</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Pour que la barre de recherche utilise, notre view controller comme delegate, on va lui demandé de le faire en ajoutant ceci dans la méthode <code>viewDidLoad()</code>.</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="nb">self</span><span class="p">.</span><span class="n">searchBar</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="nb">self</span>
+</code></pre></div>
+<p>TAG: <a href="https://github.com/benzen/mimetionnaire-tuto/tree/step-7">step-7</a></p>
+
+<h2>Player vidéo</h2>
+
+<p>Bon, maintenant on a une vraie liste de mime. Mais une fois que l&#39;on ajoute un mime, avec sa vidéo, on ne peut pas la revoir. Ça, c&#39;est dommage. On va corriger ça.</p>
+
+<p>Pour cela, on va ajouter une nouvelle vue dans notre Story-board, un <code>AVKitPlayerViewController</code>. Ensuite, on va tracer un segue depuis la cellule prototype de la liste, avec le triggered Segue <code>Selection</code> (pour que le lien se fasse lors d&#39;une sélection de cellules) vers le Player vidéo. J&#39;ai choisi le mode de transition modal, ça c&#39;est celui qui donne le meilleur effet dans ce cas-ci.</p>
+
+<p>La transition peut maintenant se faire, mais le ployer ne sait pas quoi jouer quand on veut l&#39;afficher. Pour cela il faut lui fournir l&#39;url de notre vidéo. Pour faire ça, on va ajouter les deux méthodes suivantes.</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">func</span> <span class="nf">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span> <span class="n">didSelectRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="o">!</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">self</span><span class="p">.</span><span class="n">performSegueWithIdentifier</span><span class="p">(</span><span class="s">&quot;playVideo&quot;</span><span class="p">,</span> <span class="nl">sender</span><span class="p">:</span> <span class="nb">self</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kr">override</span> <span class="k">func</span> <span class="nf">prepareForSegue</span><span class="p">(</span><span class="nl">segue</span><span class="p">:</span> <span class="bp">UIStoryboardSegue</span><span class="p">,</span> <span class="nl">sender</span><span class="p">:</span> <span class="n">AnyObject</span><span class="o">!</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">segue</span><span class="p">.</span><span class="n">identifier</span> <span class="o">==</span> <span class="s">&quot;playVideo&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="n">indexPath</span> <span class="o">=</span> <span class="n">tableView</span><span class="o">?</span><span class="p">.</span><span class="n">indexPathForSelectedRow</span><span class="p">()</span>
+        <span class="k">let</span> <span class="n">model</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">store</span><span class="p">.</span><span class="n">listMime</span><span class="p">(</span><span class="n">searchBar</span><span class="o">?</span><span class="p">.</span><span class="n">text</span><span class="p">)[</span><span class="n">indexPath</span><span class="o">!</span><span class="p">.</span><span class="n">row</span><span class="p">]</span> <span class="kt">as</span> <span class="n">MimeModel</span>
+        <span class="k">let</span> <span class="n">url</span> <span class="o">=</span> <span class="bp">NSURL</span><span class="p">(</span><span class="nl">string</span><span class="p">:</span> <span class="n">model</span><span class="p">.</span><span class="n">videoUrl</span><span class="p">)</span>
+        <span class="k">if</span> <span class="k">let</span> <span class="n">subVC</span> <span class="o">=</span> <span class="n">segue</span><span class="p">.</span><span class="n">destinationViewController</span> <span class="kt">as</span><span class="o">?</span> <span class="n">AVPlayerViewController</span> <span class="p">{</span>
+            <span class="n">subVC</span><span class="p">.</span><span class="n">player</span> <span class="o">=</span> <span class="bp">AVPlayer</span><span class="p">(</span><span class="nl">URL</span><span class="p">:</span> <span class="n">url</span><span class="p">)</span>
+            <span class="n">subVC</span><span class="p">.</span><span class="n">player</span><span class="p">.</span><span class="n">play</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Le compilateur va se plaindre qu&#39;il ne connaît pas les class <code>AVPlayerViewController</code> et <code>AVPlayer</code>. Ajouter donc ceci dans vos imports.</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">import</span> <span class="n">AVKit</span>
+<span class="k">import</span> <span class="n">AVFoundation</span>
+</code></pre></div>
+<p>Si vous avez porté attention vous aurez remarqué qu&#39;on parle d&#39;identifiant de segue dans le code que l&#39;on vient d&#39;introduire.
+Mais on a jamais défini d&#39;identifiant de segue. On va utiliser <code>playVideo</code> pour le segue entre la liste et le player. À cause d&#39;un bug dans la plateforme, on va devoir en définir aussi sur les autres segue, même si ce sont des chaines vides, il faut en ajouter, et le supprimer sur tous les segues, pas de pleurnichage on a juste un segue à nommer et dénommer.</p>
+
+<p>Et voilà, on à une liste avec un player relié.</p>
+
+<p>TAG: <a href="https://github.com/benzen/mimetionnaire-tuto/tree/step-8">step-8</a></p>
+
+<h2>Supprimer des mimes</h2>
+
+<p>On a tous vu des actions sur une liste, ou on fait glisser la cellule vers la droite ou la gauche. Il s&#39;avère que c&#39;est simple à implémenter, alors c&#39;est comme cela qu&#39;on va faire la suppression de mime.</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">func</span> <span class="nf">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="o">!</span><span class="p">,</span> <span class="n">canEditRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">true</span>
+    <span class="p">}</span>
+
+<span class="k">func</span> <span class="n">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="o">!</span><span class="p">,</span> <span class="n">commitEditingStyle</span> <span class="nl">editingStyle</span><span class="p">:</span> <span class="n">UITableViewCellEditingStyle</span><span class="p">,</span> <span class="n">forRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="o">!</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">editingStyle</span> <span class="o">==</span> <span class="n">UITableViewCellEditingStyle</span><span class="p">.</span><span class="n">Delete</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// handle delete (by removing the data from your array and updating the tableview)</span>
+        <span class="k">let</span> <span class="n">model</span> <span class="o">=</span> <span class="n">store</span><span class="p">.</span><span class="n">listMime</span><span class="p">(</span><span class="n">searchBar</span><span class="p">.</span><span class="n">text</span><span class="p">)[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">]</span>
+        <span class="n">store</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+        <span class="n">tableView</span><span class="p">.</span><span class="n">deleteRowsAtIndexPaths</span><span class="p">([</span><span class="n">indexPath</span><span class="p">],</span> <span class="nl">withRowAnimation</span><span class="p">:</span> <span class="p">.</span><span class="n">Fade</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>That&#39;s it, c&#39;est cool quand même.</p>
+
+<p>TAG: <a href="https://github.com/benzen/mimetionnaire-tuto/tree/step-9">step-9</a></p>
+
+<h2>Cacher la barre de recherche</h2>
+
+<p>Ici c&#39;est un petit nice to have que je veux ajouter.
+Je veux que la barre de recherche soit cachée par défaut et qu&#39;il faille tirer la liste vers le bas pour l&#39;afficher. C&#39;est la que l&#39;on peut comprendre la raison pour laquelle j&#39;ai insisté sur le positionnement de la barre de recherche, TOUT en haut. On a placé la barre dans le header du tableView pour que sa position soit fixe et donc plus facile à cacher.</p>
+
+<p>Voilà la méthode qui va permettre de cacher notre barre.</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">func</span> <span class="nf">hideSearchBar</span><span class="p">(){</span>
+    <span class="k">var</span> <span class="n">frame</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="p">.</span><span class="n">frame</span>
+    <span class="k">let</span> <span class="n">isSearchBarVisible</span> <span class="o">=</span> <span class="n">CGRectIntersectsRect</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">searchBar</span><span class="p">.</span><span class="n">frame</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">isSearchBarVisible</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="p">.</span><span class="n">contentOffset</span><span class="p">.</span><span class="n">y</span> <span class="o">+</span> <span class="nb">self</span><span class="p">.</span><span class="n">searchBar</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">height</span>
+        <span class="k">let</span> <span class="n">newContentOffset</span> <span class="o">=</span> <span class="bp">CGPoint</span><span class="p">(</span><span class="nl">x</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="nl">y</span><span class="p">:</span> <span class="n">y</span><span class="p">)</span>
+        <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="o">?</span><span class="p">.</span><span class="n">setContentOffset</span><span class="p">(</span> <span class="n">newContentOffset</span><span class="p">,</span> <span class="nl">animated</span><span class="p">:</span><span class="nb">true</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Ensuite, il suffit d&#39;ajouter un appel à cette méthode au bon endroit. Par exemple lors que l&#39;on parcoure le segue <code>playVideo</code> ou lorsque l&#39;on va cliquer sur le bouton <code>cancel</code> de la barre de recherche ou encore quand la vue va apparaitre.</p>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="kr">override</span> <span class="k">func</span> <span class="nf">prepareForSegue</span><span class="p">(</span><span class="nl">segue</span><span class="p">:</span> <span class="bp">UIStoryboardSegue</span><span class="p">,</span> <span class="nl">sender</span><span class="p">:</span> <span class="n">AnyObject</span><span class="o">!</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">hideSearchBar</span><span class="p">()</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">segue</span><span class="p">.</span><span class="n">identifier</span> <span class="o">==</span> <span class="s">&quot;playVideo&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">...</span>
+</code></pre></div><div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">func</span> <span class="nf">searchBarCancelButtonClicked</span><span class="p">(</span><span class="nl">searchBar</span><span class="p">:</span> <span class="bp">UISearchBar</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">hideSearchBar</span><span class="p">()</span>
+    <span class="n">searchBar</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+    <span class="n">tableView</span><span class="p">.</span><span class="n">reloadData</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="kr">override</span> <span class="k">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="n">hideSearchBar</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Et voilà l&#39;application faite tout ce que je voulais.</p>
+
+<h1>Choix technologique</h1>
+
+<h2>Persistence (UserPreferences, core-data, sqlite)</h2>
+
+<p>Vu la faible complexité de mon modèle de donnée, j&#39;ai recherché le plus simple
+moyen de sauvegarder mes données. Comme j&#39;étais en processus d&#39;apprendre
+IOS j&#39;ai orienté mes recherches uniquement sur les modules de persistance natifs.</p>
+
+<p>D&#39;après mes premières recherches, le plus simple est le module UserPrefererences.
+Il s&#39;agit d&#39;un équivalent de LocalStorage. Une grosse map dans laquelle on peut mettre des
+types natifs et des objets au bout d&#39;une clé. D&#39;après le nom on se doute à
+quoi ça doit servir. J&#39;imagine qu&#39;il existe des limitations assez basses sur la quantité de données que l&#39;on peut insérer avec ce module. J&#39;ai commencé à travailler avec et
+tout semblait bien aller.
+Quand j&#39;ai arrêté mon simulateur, mes données étaient effacées. Je suppose qu&#39;il
+existe un moyen de confirmer que l&#39;on veut persister nos données après un arrêt
+de l&#39;application, mais je ne l&#39;ai pas trouvé. J&#39;ai cherché autre chose.</p>
+
+<p>Le second module qui est ressorti tout de suite après, c&#39;est CoreData.
+La lune de miel a été très courte. Le temps de comprendre qu&#39;il s&#39;agit d&#39;un
+ORM a l’hibernante. J&#39;ai vomi, je suis allé voir plus loin.</p>
+
+<p>Le troisième module qui est disponible nativement SQLite.
+Rien de très complexe ici, on connait tous SQL. SQLite est juste une base qui
+est tenue dans un fichier, idéal pour une base embarquée. Le seul point spécial
+c&#39;est qu&#39;il n&#39;y a pas de module natif en Swift pour ça.
+Donc tout le monde a construit sa petite lib pour ne pas avoir à travailler
+tous les jours avec cocoa. J&#39;ai essayé les modules suivantes:</p>
+
+<ul>
+<li>SwiftData</li>
+<li>SQLiteDB</li>
+</ul>
+
+<p>Ils font tous un peut la même chose. J&#39;ai fini avec SQLiteDB, car c&#39;est le seul que j&#39;ai réussi à installer. Ah oui, by the way, avec Swift il n&#39;y a pas encore de système de gestion de dépendances, c&#39;est pas mal triste en 2014. Du coup, on revient à ce que l&#39;on faisait dans <em>l&#39;ancien temps</em>. On copie les dépendances dans notre projet, dans un dossier appart si on veut être un poil propre. On peut le faire avec un submodule git pour faciliter la mise à jour des dépendances.</p>
+
+<h2>Langage(Swift/Objective-C)</h2>
+
+<p>J&#39;ai plus rejeté Objective-C que choisit Swift. La gestion de mémoire, la vie avec des pointeurs et les appels de fonction par passage de message. Pour tout cela je suis d&#39;avis que l&#39;ont à <em>maintenant</em> des solutions qui correspondent bien à la plupart des cas d&#39;usage. Donc à moins d&#39;avoir un besoin particulier, je pense que tout cela on est mieux de s&#39;en tenir loin.</p>
+
+<p>Avant de me lancer dans l&#39;écriture de ce projet j&#39;ai lu la description du langage, pas en entier et en diagonale. Dans le fond, je l&#39;ai lu jusqu&#39;au point de me dire:</p>
+
+<p><em>Ahh je connais tout ça .. Presque...</em></p>
+
+<p>Après coup, je me rends compte que certains points sont mois évident ne sont pas aussi
+habituel qu&#39;il n&#39;y parait. Si vous voulez sauter dans Swift, regardez attentivement ces points
+dans la doc du langage.</p>
+
+<p>1-La manière de déclarer des signatures me fait penser à OCaml. Mais ce n&#39;est pas tout le monde qui
+a travaillé avec des langages académico-weirdo.
+2-Les différents opérateurs pour les types optionnels (<code>type?</code> et <code>type!</code>)</p>
+
+<h1>Avis</h1>
+
+<h2>Xcode</h2>
+
+<p>Même si ça reste un IDE, qui ne sera jamais capable de traiter avec des langages dynamiques comme Swift. Il me réconcilie avec l&#39;idée d&#39;une IDE (l&#39;IDÉe :).
+C&#39;est rapide, ça aide vraiment, surtout pour ce qui est du story-board.</p>
+
+<h2>Swift</h2>
+
+<p>Le langage bien que pas particulièrement brillant pour des fonctionnalités particulières offre tout de même les blocs qui sont maintenant requis pour un langage de base, fonction anonyme entre autres. J&#39;avoue ne pas avoir passé beaucoup de temps sur le langage. Pour moi ce que ce langage apporte c&#39;est surtout de pouvoir faire des applis IOS sans saigner des yeux avec de l&#39;objective C.</p>
+
+<h2>La plateforme IOS</h2>
+
+<p>Contrairement à ce que je pensais en commençant. La plateforme est très agréable à travailler. La communauté est grosse et dynamique, donc on trouve facilement le support dont on a besoin pour terminer une tâche.
+J&#39;ai pris beaucoup de plaisir à faire cette petite application jouet. Surement que j&#39;en ferrais d&#39;autres.</p>
+
+      <div id="disqus_thread">
+        <script type="text/javascript">
+          /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+          var disqus_shortname = 'benzen'; // required: replace example with your forum shortname
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the<a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by<span class="logo-disqus">Disqus</span></a>
+      </div>
+    </div>
+  </body>
+</html>
