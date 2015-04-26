@@ -1,6 +1,7 @@
 ---
 layout: post
 title: CLJS Wondering
+tags: js clojure clojurescript demo
 ---
 
 J'ai croisé le lapin de Clojure, mais est-ce que je suis prêt à le suivre
