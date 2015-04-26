@@ -3,6 +3,9 @@ layout: post
 title: CLJS Wondering
 ---
 
+J'ai croisé le lapin de Clojure, mais est-ce que je suis prêt à le suivre
+dans le terrier vers Wonderland ?
+
 # Comment j'en suis arrivé là (((
 
 Dans les dernières semaines, [@fxg](https://twitter.com/FXGuillemette) et moi nous sommes intéressés 
