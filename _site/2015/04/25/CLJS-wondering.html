@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      var disqus_identifier = "/2015/04/25/CLJS-wondering";
+      
+    </script>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <script src="/js/jquery.js" charset="utf-8"></script>
+    <script src="/js/bootstrap.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="/css/pygments.css">
+    <link rel="stylesheet" type="text/css" href="/css/blog.css">
+    <script>
+      var blogUrl = "benzen.github.io";
+      if(window.location.origin.indexOf(blogUrl) > -1){
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-55046322-1', 'auto');
+        ga('require', 'displayfeatures');
+        ga('send', 'pageview');
+      }
+    </script>
+    <title>Benzen - CLJS Wondering</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1><a href="/"><i class="fa fa-home fa-lg">&nbsp;</i></a>CLJS Wondering&nbsp;<small><a href=""><i class="fa fa-link">&nbsp;</i></a>publié le:  2015-04-25</small></h1>
+      <ul style="display: inline-block;" class="list-inline">
+        <li class="badge">js</li>
+        <li class="badge">clojure</li>
+        <li class="badge">clojurescript</li>
+        <li class="badge">demo</li>
+      </ul><p>J&#39;ai croisé le lapin de Clojure, mais est-ce que je suis prêt à le suivre
+dans le terrier vers Wonderland ?</p>
+
+<h1>Comment j&#39;en suis arrivé là (((</h1>
+
+<p>Dans les dernières semaines, <a href="https://twitter.com/FXGuillemette">@fxg</a> et moi nous sommes intéressés 
+à lister les manières d&#39;écrire du code asynchrone dans node/le browser.
+Nous sommes ressortis de cet exercice avec un dépôt: <a href="https://github.com/fxg42/async-comparison">Async-comparison</a>.</p>
+
+<p>En chemin je suis tombé sur le concept de <a href="http://fr.wikipedia.org/wiki/Communicating_sequential_processes">CSP</a>. 
+Les deux implémentations qui font le plus parlé ces temps sont sont celles de 
+Go et celle Clojure.</p>
+
+<p>J&#39;ai donc vu pas mal de Clojure en chemin. Comme le sujet n&#39;est pas intarissable,
+j&#39;ai fini par regarder un peu autour, en touriste.</p>
+
+<p>Il me semble que l&#39;écosystème Clojure et ClojureScript est très riche, très très riche.
+Je ne vais pas me lancer dans un listing exhaustif, 
+des ressources le font mieux que moi: </p>
+
+<ul>
+<li><a href="http://fr.wikipedia.org/wiki/Clojure">Article wikipedia de Clojure</a></li>
+<li><a href="http://clojure.org/documentation">Documentation de Clojure</a></li>
+<li><a href="https://github.com/clojure/clojurescript">Github de Clojurescript</a></li>
+</ul>
+
+<h1>))))</h1>
+
+<p>J&#39;ai l&#39;impression qu&#39;il y a de belles choses à aller chercher dans
+l&#39;écosystème Clojure. Mais je ne suis pas assez sûr d&#39;aimer travailler avec
+un Lisp pour passer plus de temps à fouiller l&#39;environnement de Clojure/Clojurescript.</p>
+
+<h1>GET TO THE POINT</h1>
+
+<p>J&#39;ai donc fait un petit projet juste pour voir ce que ça donne de 
+travailler avec Clojure/Clojurescript.</p>
+
+<p>J&#39;ai donc monté un <a href="http://gabrielecirulli.github.io/2048/">2048</a> en clojurescript.
+Pour la présentation, j&#39;ai utilisé une Reagent.
+Reagent c&#39;est une couche sur react qui simplifie/clojurifie les choses.</p>
+
+<ul>
+<li>Live Demo: <a href="/pages/2048">ici</a> </li>
+<li>Souce: <a href="https://github.com/benzen/2048">2048@github</a></li>
+</ul>
+
+<h1>Pis à date comment c&#39;est ?</h1>
+
+<h2>Le fun</h2>
+
+<p>Jouer avec des structures de données immuables c&#39;est très agréable.
+Le fait que toute la librairie core soit orientée sur cette idée permet 
+de ne pas se poser la question sur la manière dont on devrait faire les choses.
+Une donnée c&#39;est quelque chose de fixe, point à la ligne.
+La valeur associée à un nom peut changer. Mais quand on travaille sur une référence,
+les choses sont toujours claires (suffixe de nom de méthode !).</p>
+
+<p>Je ne sais pas pourquoi, mais avec les langages purement fonctionnels, 
+j&#39;ai toujours l&#39;impression de construire une logique, un domaine.
+Avec les langages à saveur plus impérative, j&#39;ai plus le sentiment de relier des choses
+ensemble, sans jamais changer de niveau compréhension.</p>
+
+<p>Reagent simplifie de beaucoup la création de composants React.
+J&#39;ai vu rapidement qu&#39;il était possible de consommer des composants React standard
+ainsi que de &quot;Reactrifier&quot; ses composants Reagent.
+Évidemment on ne peut pas complètement ignorer le fonctionnement de React.
+On réduit le boiler-plate au strict minimum.
+Reageant utilise Hipcup pour construire les structures de dom qui seront utilisées pour le dom
+virtuel. La syntaxe choisie par Hipcup donne presque l&#39;impression d&#39;écrire des template
+de Jade.</p>
+
+<p>Les maudits outils de buid. Quand on a utilisé Maven, Grunt ou Gulp on ne supporte plus
+les descripteurs de build complexe. Leinigen semble nettement plus simple.
+Tout comme gradle simplifie les choses pour les tâches simples comme builder avec un
+watch, faire des source-map, minifier etc.</p>
+
+<h2>Sauf que...</h2>
+
+<p>Ce qui m&#39;a donné le plus de fil à retordre c&#39;est la modélisation des données
+et trouver une bonne façon de traiter un tour de jeu.
+À chaque fois que j&#39;ai travaillé dans un environnement/langage purement fonctionnel,
+j&#39;ai le même problème. Sauf qu&#39;au final les solutions sont toujours bien plus simples.
+J&#39;imagine qu&#39;avec un peut plus d&#39;entrainement ce problème ce résoudrais.</p>
+
+<h1>One more thing</h1>
+
+<p>Je suis me suis amusé à faire une utilisation de clojurescript dans Node/express.
+Vraiement basique comme exemple, juste pour ouvrir l&#39;esprit sur l&#39;interopérabilité js/cjjs.
+<a href="https://github.com/benzen/cljs-toying/tree/master">cljs-toying</a></p>
+
+      <div id="disqus_thread">
+        <script type="text/javascript">
+          /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+          var disqus_shortname = 'benzen'; // required: replace example with your forum shortname
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the<a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by<span class="logo-disqus">Disqus</span></a>
+      </div>
+    </div>
+  </body>
+</html>
