@@ -1,9 +1,11 @@
 ---
----
 layout: post
 title: Create entity with reference 
 tags: elixir ecto phoenix reference
 ---
+
+Looking for advice on how to insert entity that reference other entity with Ecto ?
+This may help you.
 
 What ?
 -----
