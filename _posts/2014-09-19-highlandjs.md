@@ -11,7 +11,7 @@ identique et surtout elles ne sont pas toutes compatibles.
 Ce qui veut dire qu'enchainer les unes derrière les autres ca peut vite devennir
 l'enfer.
 
- Ne pas faire ce que l'on veux, des fois c'est cool
+Ne pas faire ce que l'on veux, des fois c'est cool
 =======
 
 Je regarde beaucoup de conférences, la plus part du temps sur
