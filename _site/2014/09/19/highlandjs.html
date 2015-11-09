@@ -43,7 +43,7 @@ identique et surtout elles ne sont pas toutes compatibles.
 Ce qui veut dire qu&#39;enchainer les unes derrière les autres ca peut vite devennir
 l&#39;enfer.</p>
 
-<h1> Ne pas faire ce que l&#39;on veux, des fois c&#39;est cool</h1>
+<h1>Ne pas faire ce que l&#39;on veux, des fois c&#39;est cool</h1>
 
 <p>Je regarde beaucoup de conférences, la plus part du temps sur
 <a href="http://www.infoq.com/presentations/">InfoQ</a>.</p>
@@ -112,14 +112,14 @@ un projet jouet <a href="https://github.com/benzen/demo-highland">ici</a>.</p>
 <h2>Premier coup d&#39;épée</h2>
 
 <p>Droit au but, jetez un oeil à <a href="https://github.com/benzen/demo-highland/blob/8580234102c287b94a5493db4f881593c5146f90/src/index.jade">ceci</a></p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"> <span class="nx">highland</span><span class="p">(</span><span class="s1">&#39;keyup&#39;</span><span class="p">,</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#fld&#39;</span><span class="p">))</span>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"> <span class="nx">highland</span><span class="p">(</span><span class="s1">'keyup'</span><span class="p">,</span><span class="nx">$</span><span class="p">(</span><span class="s1">'#fld'</span><span class="p">))</span>
   <span class="p">.</span><span class="nx">debounce</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">latest</span><span class="p">()</span>
-  <span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">){</span> <span class="k">return</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#fld&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">());</span> <span class="p">})</span>
-  <span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">encodedSearchTerms</span><span class="p">){</span> <span class="k">return</span> <span class="nx">highland</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">(</span><span class="s2">&quot;search.html?param=&quot;</span><span class="o">+</span><span class="nx">encodedSearchTerms</span><span class="p">));</span> <span class="p">})</span>
+  <span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">){</span> <span class="k">return</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">'#fld'</span><span class="p">).</span><span class="nx">val</span><span class="p">());</span> <span class="p">})</span>
+  <span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">encodedSearchTerms</span><span class="p">){</span> <span class="k">return</span> <span class="nx">highland</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">(</span><span class="s2">"search.html?param="</span><span class="o">+</span><span class="nx">encodedSearchTerms</span><span class="p">));</span> <span class="p">})</span>
   <span class="p">.</span><span class="nx">merge</span><span class="p">()</span>
   <span class="p">.</span><span class="nx">errors</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">push</span><span class="p">){</span> <span class="nx">push</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{});</span> <span class="p">})</span>
-  <span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">){</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#content&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">})</span>
+  <span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">){</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'#content'</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">})</span>
 </code></pre></div>
 <p>Le processus est super simple, une fois que l&#39;on a compris le principe.
 Il y a trois types d&#39;opérateurs avec highland:</p>
@@ -154,25 +154,26 @@ et on l&#39;affiche dans un div de la page</li>
 Par contre, je trouve le résultat plutôt agréable.
 De plus, j&#39;ai choisi de faire mes tests avec du js juste pour simplifier
 la loop de feedback. Mais avec une syntaxe coffeescript ça devient fou:</p>
-<div class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">highland</span> <span class="s">&#39;keyup&#39;</span><span class="p">,</span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;#fld&#39;</span><span class="p">)</span>
- <span class="p">.</span><span class="nx">debounce</span> <span class="mi">1000</span>
- <span class="p">.</span><span class="nx">latest</span><span class="p">()</span>
- <span class="p">.</span><span class="nx">map</span> <span class="nf">(event)-&gt;</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;#fld&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">())</span>
- <span class="p">.</span><span class="nx">map</span> <span class="nf">(encodedSearchTerms)-&gt;</span> <span class="nx">highland</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">(</span><span class="s">&quot;search.html?param=&quot;</span><span class="o">+</span><span class="nx">encodedSearchTerms</span><span class="p">))</span>
- <span class="p">.</span><span class="nx">merge</span><span class="p">()</span>
- <span class="p">.</span><span class="nx">errors</span> <span class="nf">(err, push)-&gt;</span> <span class="nx">push</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{})</span>
- <span class="p">.</span><span class="nx">each</span> <span class="nf">(result)-&gt;</span> <span class="nx">$</span><span class="p">(</span><span class="s">&#39;#content&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">highland</span> <span class="s">'keyup'</span><span class="p">,</span><span class="nx">$</span><span class="p">(</span><span class="s">'#fld'</span><span class="p">)</span>
+ <span class="p">.</span><span class="na">debounce</span> <span class="mi">1000</span>
+ <span class="p">.</span><span class="na">latest</span><span class="p">()</span>
+ <span class="p">.</span><span class="na">map</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="o">-&gt;</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s">'#fld'</span><span class="p">).</span><span class="na">val</span><span class="p">())</span>
+ <span class="p">.</span><span class="na">map</span> <span class="p">(</span><span class="nx">encodedSearchTerms</span><span class="p">)</span><span class="o">-&gt;</span> <span class="nx">highland</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="na">ajax</span><span class="p">(</span><span class="s">"search.html?param="</span><span class="o">+</span><span class="nx">encodedSearchTerms</span><span class="p">))</span>
+ <span class="p">.</span><span class="na">merge</span><span class="p">()</span>
+ <span class="p">.</span><span class="na">errors</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">push</span><span class="p">)</span><span class="o">-&gt;</span> <span class="nx">push</span><span class="p">(</span><span class="no">null</span><span class="p">,</span> <span class="p">{})</span>
+ <span class="p">.</span><span class="na">each</span> <span class="p">(</span><span class="nx">result</span><span class="p">)</span><span class="o">-&gt;</span> <span class="nx">$</span><span class="p">(</span><span class="s">'#content'</span><span class="p">).</span><span class="na">html</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+
 </code></pre></div>
 <h2>The Quickening</h2>
 
 <p>On avance un peu. On va regarder <a href="https://github.com/benzen/demo-highland/blob/16eecb213635bbe953662a0a11ddc05c30c7bb1b/src/index.jade">ici</a></p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">counter</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">click1</span> <span class="o">=</span> <span class="nx">highland</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;button#btn1&#39;</span><span class="p">));</span>
-<span class="kd">var</span> <span class="nx">click2</span> <span class="o">=</span> <span class="nx">highland</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;button#btn2&#39;</span><span class="p">));</span>
+<span class="kd">var</span> <span class="nx">click1</span> <span class="o">=</span> <span class="nx">highland</span><span class="p">(</span><span class="s1">'click'</span><span class="p">,</span><span class="nx">$</span><span class="p">(</span><span class="s1">'button#btn1'</span><span class="p">));</span>
+<span class="kd">var</span> <span class="nx">click2</span> <span class="o">=</span> <span class="nx">highland</span><span class="p">(</span><span class="s1">'click'</span><span class="p">,</span><span class="nx">$</span><span class="p">(</span><span class="s1">'button#btn2'</span><span class="p">));</span>
 <span class="nx">highland</span><span class="p">([</span><span class="nx">click1</span><span class="p">,</span><span class="nx">click2</span><span class="p">])</span>
   <span class="p">.</span><span class="nx">merge</span><span class="p">()</span>
   <span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#score-board&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="s2">&quot;&lt;p&gt;&quot;</span> <span class="o">+</span> <span class="nx">counter</span><span class="o">++</span> <span class="o">+</span><span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'#score-board'</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="s2">"&lt;p&gt;"</span> <span class="o">+</span> <span class="nx">counter</span><span class="o">++</span> <span class="o">+</span><span class="s2">"&lt;/p&gt;"</span><span class="p">);</span>
 <span class="p">});</span>
 </code></pre></div>
 <p>Ici on travaille avec deux sources asynchrones. Les deux évènements clic peuvent se produire
@@ -199,23 +200,23 @@ viennent d&#39;un fork s&#39;attendent entre eux pour vraiment commencer à cons
     <span class="k">if</span><span class="p">(</span><span class="nx">x</span> <span class="o">===</span> <span class="nx">highland</span><span class="p">.</span><span class="nx">nil</span><span class="p">){</span>
       <span class="nx">push</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="nx">x</span><span class="p">);</span>
     <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;even says&quot;</span><span class="o">+</span><span class="nx">x</span><span class="p">);</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"even says"</span><span class="o">+</span><span class="nx">x</span><span class="p">);</span>
       <span class="nx">push</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="nx">x</span><span class="p">);</span>
       <span class="nx">next</span><span class="p">();</span>
     <span class="p">}</span>
   <span class="p">}).</span><span class="nx">resume</span><span class="p">();</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;s1 is started&quot;</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"s1 is started"</span><span class="p">)</span>
 <span class="nx">s2</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">})</span>
   <span class="p">.</span><span class="nx">consume</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">push</span><span class="p">,</span> <span class="nx">next</span><span class="p">){</span>
     <span class="k">if</span><span class="p">(</span><span class="nx">x</span> <span class="o">===</span> <span class="nx">highland</span><span class="p">.</span><span class="nx">nil</span><span class="p">){</span>
       <span class="nx">push</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="nx">x</span><span class="p">);</span>
     <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;odd says&quot;</span><span class="o">+</span><span class="nx">x</span><span class="p">);</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"odd says"</span><span class="o">+</span><span class="nx">x</span><span class="p">);</span>
       <span class="nx">push</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="nx">x</span><span class="p">);</span>
       <span class="nx">next</span><span class="p">();</span>
     <span class="p">}</span>
   <span class="p">}).</span><span class="nx">resume</span><span class="p">();</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;s2 is started&quot;</span><span class="p">)</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"s2 is started"</span><span class="p">)</span>
 </code></pre></div>
 <p>Ici un crée deux copies du flux initial. Pour l&#39;un on va filtrer les nombres pairs,
 pour l&#39;autre les impaires(on rejette les pairs du flux).

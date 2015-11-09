@@ -1,0 +1,53 @@
+<p>layout: post
+title: Create entity with reference </p>
+
+<h2>tags: elixir ecto phoenix reference</h2>
+
+<h2>What ?</h2>
+
+<p>A very consice description of how to insert an new entity with reference to an already inserted entity.</p>
+
+<h2>Why ?</h2>
+
+<p>When I was trying to do this with ecto, I did&#39;t find reference on this. I&#39;ve found solution to much more
+advanced questions, but simple one also need guidance for beginners.</p>
+
+<h2>How ?</h2>
+
+<p>So here is my problem.
+I have an entity <code>User</code>, I&#39;ve created it with phoenix tool chain, like this:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>mix 
+mix phoenix.gen.model User users email:string password:string
+</code></pre></div>
+<p>Quite easy, I&#39;ve made a couple of changes to this model as described (here)[http://meatherly.github.io/2015/05/11/phoenixauthentication/], 
+in order to add an encrypted password.</p>
+
+<p>Then I&#39;ve added another entity <code>Couple</code>. The couple is an entity that group two user together, like  a couple.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">mix phoenix.gen.model Couple couples partner_1:references:users partner_2:references:users
+</code></pre></div>
+<p>Here is how you could create the couple in db from your app</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir">
+  <span class="k">def</span> <span class="n">couple</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="p">%{</span><span class="ss">:other_user_id</span> <span class="o">=&gt;</span> <span class="n">other_user_id</span> <span class="p">)</span> <span class="k">do</span> 
+    <span class="n">current_user_id</span> <span class="o">=</span> <span class="n">get_session</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">:current_user</span><span class="p">)</span>
+    <span class="n">changeset</span> <span class="o">=</span> <span class="p">%</span><span class="no">Couple</span><span class="p">{}</span>
+    <span class="o">|&gt;</span> <span class="no">Couple</span><span class="o">.</span><span class="n">changeset</span><span class="p">(%{})</span>
+    <span class="o">|&gt;</span> <span class="no">Changeset</span><span class="o">.</span><span class="n">put_change</span><span class="p">(</span><span class="ss">:partner1_id</span><span class="p">,</span> <span class="n">current_user_id</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="no">Changeset</span><span class="o">.</span><span class="n">put_change</span><span class="p">(</span><span class="ss">:partner2_id</span><span class="p">,</span> <span class="n">other_user_id</span><span class="p">)</span>
+
+    <span class="c1">#Then do stuff like</span>
+    <span class="n">changeset</span><span class="o">.</span><span class="n">valid?</span>
+    <span class="c1">#or</span>
+    <span class="no">Repo</span><span class="o">.</span><span class="n">insert</span> <span class="n">changeset</span>
+  <span class="k">end</span>
+</code></pre></div>
+<p>At first this seams strange, when you never worked with Ecto.
+Once you&#39;ve got the idea, you&#39;ll understand that hibernate session is really a terrible idea.</p>
+
+<p>In Ecto you create a changeset for an entity. You will accumulate manipulation on
+your changeset, like with your git/mercurial.
+Once your happy with the changeset you&#39;ll insert it into the db, like a commit.</p>
+
+<p>I didn&#39;t explain why nor how to validate and insert. For thoses information the
+official Ecto documentation is well done.</p>
+
+<p>I hope this very tiny guide will help some of use to progress a little bit further will Elixir and Phoenix.</p>

@@ -286,12 +286,13 @@ Mais ce bouton ne fait rien jusqu&#39;a maintenant.</p>
 
 <p>Pour faire ça on va avoir besoin de faire un peu de code (ENFIN).
 On va se créer une class Swift, que l&#39;on va appeler <code>AjouterMimeViewController</code>.</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">import</span> <span class="n">UIKit</span>
-<span class="k">import</span> <span class="n">MobileCoreServices</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">
+import UIKit
+import MobileCoreServices
 
-<span class="k">class</span> <span class="nl">AjouterMimeViewController</span><span class="p">:</span> <span class="bp">UIViewController</span><span class="p">,</span> <span class="bp">UIImagePickerControllerDelegate</span><span class="p">,</span> <span class="bp">UINavigationControllerDelegate</span><span class="p">{</span>
+class AjouterMimeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
-<span class="p">}</span>
+}
 </code></pre></div>
 <p>Notre class hérite de UIViewController qui est la classe de base pour ce qui est de la gestion
 d&#39;une vue.
@@ -299,14 +300,14 @@ Le UIImagePickerControllerDelegate permet d&#39;ajouter un certain nombre de com
 le UINavigationControllerDelegate permet quant à lui d&#39;avoir le comportement qui permet ne naviguer entre les vues sans trop s&#39;en soucier.</p>
 
 <p>Ensuite, on va ajouter une méthode pour sélectionner une vidéo dans la pellicule.</p>
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">func</span> <span class="nf">selectVideo</span><span class="p">(){</span>
-    <span class="k">var</span> <span class="n">ipController</span> <span class="o">=</span> <span class="bp">UIImagePickerController</span><span class="p">()</span>
-    <span class="n">ipController</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="nb">self</span>
-    <span class="n">ipController</span><span class="p">.</span><span class="n">sourceType</span> <span class="o">=</span> <span class="n">UIImagePickerControllerSourceType</span><span class="p">.</span><span class="n">SavedPhotosAlbum</span>
-    <span class="n">ipController</span><span class="p">.</span><span class="n">mediaTypes</span> <span class="o">=</span> <span class="bp">NSArray</span><span class="p">(</span><span class="nl">object</span><span class="p">:</span> <span class="n">kUTTypeMovie</span><span class="p">)</span>
-    <span class="n">ipController</span><span class="p">.</span><span class="n">allowsEditing</span> <span class="o">=</span> <span class="nb">false</span>
+<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">selectVideo</span><span class="p">(){</span>
+    <span class="k">var</span> <span class="nv">ipController</span> <span class="o">=</span> <span class="kt">UIImagePickerController</span><span class="p">()</span>
+    <span class="n">ipController</span><span class="o">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="k">self</span>
+    <span class="n">ipController</span><span class="o">.</span><span class="n">sourceType</span> <span class="o">=</span> <span class="kt">UIImagePickerControllerSourceType</span><span class="o">.</span><span class="kt">SavedPhotosAlbum</span>
+    <span class="n">ipController</span><span class="o">.</span><span class="n">mediaTypes</span> <span class="o">=</span> <span class="kt">NSArray</span><span class="p">(</span><span class="nv">object</span><span class="p">:</span> <span class="n">kUTTypeMovie</span><span class="p">)</span>
+    <span class="n">ipController</span><span class="o">.</span><span class="n">allowsEditing</span> <span class="o">=</span> <span class="kc">false</span>
 
-    <span class="nb">self</span><span class="p">.</span><span class="n">presentViewController</span><span class="p">(</span><span class="n">ipController</span><span class="p">,</span> <span class="nl">animated</span><span class="p">:</span> <span class="nb">true</span><span class="p">,</span> <span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+    <span class="k">self</span><span class="o">.</span><span class="nf">presentViewController</span><span class="p">(</span><span class="n">ipController</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Dans cette méthode, on désigne la classe qui servira de delegate pour ceci, la classe courante.
@@ -333,11 +334,11 @@ de cliquer sur la partie haute de la vue, puis de cliquer sur l&#39;icône jaune
 
 <p>Maintenant, si on lance l&#39;application, on peut voir qu&#39;on peut aller dans la liste de vidéo du téléphone. Mais, il ne se passe rien si on en sélectionne une.
 Pour cela, on va ajouter une fonction dans notre controller.</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">func</span> <span class="nf">imagePickerController</span><span class="p">(</span><span class="nl">picker</span><span class="p">:</span> <span class="bp">UIImagePickerController</span><span class="o">!</span><span class="p">,</span> <span class="n">didFinishPickingMediaWithInfo</span> <span class="nl">info</span><span class="p">:</span> <span class="bp">NSDictionary</span><span class="o">!</span><span class="p">){</span>
-    <span class="k">var</span> <span class="n">url</span> <span class="o">=</span> <span class="n">info</span><span class="p">.</span><span class="n">objectForKey</span><span class="p">(</span><span class="n">UIImagePickerControllerReferenceURL</span><span class="p">)</span> <span class="kt">as</span> <span class="bp">NSURL</span>
-    <span class="k">var</span> <span class="n">urlAsString</span> <span class="o">=</span> <span class="n">url</span><span class="p">.</span><span class="n">absoluteString</span><span class="o">!</span>
-    <span class="nb">self</span><span class="p">.</span><span class="n">dismissViewControllerAnimated</span><span class="p">(</span><span class="nb">true</span><span class="p">,</span> <span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
-<span class="p">}</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: NSDictionary!){
+    var url = info.objectForKey(UIImagePickerControllerReferenceURL) as NSURL
+    var urlAsString = url.absoluteString!
+    self.dismissViewControllerAnimated(true, completion: nil)
+}
 </code></pre></div>
 <p>Cette méthode est définie dans le delegate <code>UIImagePickerControllerDelegate</code>. Elle est optionnelle, mais lorsqu&#39;elle est présente, elle est appelée avec le picker (dans notre cas il s&#39;agit du view controller courant) et une map d&#39;info relative au fichier (p.ex. taille, format, URL...). Dans notre cas on va récupérer l&#39;url de la vidéo sous forme d&#39;une String pour la sauvegarder facilement et la réutiliser plus tard. Pour l&#39;instant, cette fonction ne fait rien d&#39;utile, mais quand on aura commencé à regarder la persistance, on la bonifiera.</p>
 
@@ -352,36 +353,36 @@ dans la prochaine section.</p>
 <h2>Persistence</h2>
 
 <p>Avant de chercher à persister nos mimes, on va commencer par choisir qu&#39;est ce que c&#39;est un mime? On va se faire une petite classe <code>Model</code>/<code>Domain</code> appeler ça comme vous voulez bref une structure nommée pour standardiser les mimes.</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">class</span> <span class="n">MimeModel</span><span class="p">{</span>
-    <span class="k">var</span> <span class="n">nom</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-    <span class="k">var</span> <span class="n">videoUrl</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">class MimeModel{
+    var nom = ""
+    var videoUrl = ""
+}
 </code></pre></div>
 <p>Rien de très excitant.</p>
 
 <p>On va aussi se faire un store, qui va conserver les mimes une fois définis.
 Partons d&#39;une définition simpliste.</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">class</span> <span class="n">MimeStore</span> <span class="p">{</span>
-    <span class="k">var</span> <span class="nl">store</span><span class="p">:</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">MimeModel</span><span class="o">&gt;</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">class MimeStore {
+    var store: Array&lt;MimeModel&gt;
 
-    <span class="k">init</span><span class="p">(){</span>
-        <span class="nb">self</span><span class="p">.</span><span class="n">store</span> <span class="o">=</span>  <span class="p">[]</span>
-    <span class="p">}</span>
+    init(){
+        self.store =  []
+    }
 
-    <span class="k">func</span> <span class="n">addMime</span><span class="p">(</span><span class="nl">m</span> <span class="p">:</span><span class="n">MimeModel</span><span class="p">){</span>
-        <span class="nb">self</span><span class="p">.</span><span class="n">store</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-    <span class="p">}</span>
-    <span class="k">func</span> <span class="n">listMime</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">MimeModel</span><span class="o">&gt;</span><span class="p">{</span>
-        <span class="k">return</span> <span class="nb">self</span><span class="p">.</span><span class="n">store</span>
-    <span class="p">}</span>
-    <span class="k">func</span> <span class="n">removeMime</span><span class="p">(</span><span class="nl">nom</span> <span class="p">:</span><span class="n">String</span><span class="p">){</span>
-        <span class="nb">self</span><span class="p">.</span><span class="n">store</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">store</span><span class="p">.</span><span class="n">filter</span><span class="p">({</span> <span class="err">$</span><span class="mf">0.</span><span class="n">nom</span> <span class="o">!=</span> <span class="n">nom</span><span class="p">})</span>
-    <span class="p">}</span>
-    <span class="k">func</span> <span class="n">getMime</span><span class="p">(</span><span class="nl">nom</span> <span class="p">:</span><span class="n">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MimeModel</span><span class="p">{</span>
-        <span class="k">var</span> <span class="n">models</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">store</span><span class="p">.</span><span class="n">filter</span><span class="p">({</span> <span class="err">$</span><span class="mf">0.</span><span class="n">nom</span> <span class="o">==</span> <span class="n">nom</span><span class="p">})</span>
-        <span class="k">return</span> <span class="n">models</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+    func addMime(m :MimeModel){
+        self.store.append(m)
+    }
+    func listMime() -&gt; Array&lt;MimeModel&gt;{
+        return self.store
+    }
+    func removeMime(nom :String){
+        self.store = self.store.filter({ $0.nom != nom})
+    }
+    func getMime(nom :String) -&gt; MimeModel{
+        var models = self.store.filter({ $0.nom == nom})
+        return models[0]
+    }
+}
 </code></pre></div>
 <p>En faisant cela, on a défini l&#39;api de cette classe et on a un comportement basique. Évidemment, après un redémarrage, on aura perdu notre liste. On va donc persister de manière un peu plus durable.</p>
 
@@ -393,57 +394,58 @@ On modifiera la valeur de <code>Objective-C briding header</code>, utiliser la r
 <p>Pendant que l&#39;on est dans les <code>Build Settings</code>, on va aller dans les <code>Build phases</code>, le menu d&#39;accoté. Et, on va ajouter un lien vers une librairie. <code>libsqlite3.0.dylib</code> en l&#39;occurrence. SQLiteDb permet de donner une interface Swift à SQlite, mais on a quand même besoin de SQLite.</p>
 
 <p>Malheureusement, SQliteDB ne permet pas de créer une base programativement. On a donc besoin de créer cette base avec notre unique table ainsi.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$ sqlite3 data.db
+<div class="highlight"><pre><code class="language-" data-lang="">$ sqlite3 data.db
 sqlite&gt; CREATE TABLE mime (nom text, videoUrl text);
 sqlite&gt;.q
 </code></pre></div>
 <p>On a maintenant un fichier <code>data.db</code> que l&#39;on va placer dans les sources de notre projet. On a besoin également de le déclarer dans Xcode pour qu&#39;elle soit copiée lorsque l&#39;on lancera le simulateur. Ça se passera dans `<code>Build Phases</code> sous <code>Copy bundle ressources</code>.</p>
 
 <p>Pour pouvoir faire des requêtes, il suffit de faire ceci</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">let</span> <span class="n">db</span> <span class="o">=</span> <span class="n">SQLiteDB</span><span class="p">.</span><span class="n">sharedInstance</span><span class="p">()</span>
-<span class="k">let</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;SELECT * FROM mime&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">let db = SQLiteDB.sharedInstance()
+let rs = db.query("SELECT * FROM mime")
 </code></pre></div>
 <p>On a tout les éléments pour réimplémenter notre store.</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">class</span> <span class="n">MimeStore</span><span class="p">{</span>
-    <span class="k">let</span> <span class="n">insert</span> <span class="o">=</span> <span class="s">&quot;INSERT INTO mime (nom, videoUrl) VALUES (?, ?);&quot;</span>
-    <span class="k">let</span> <span class="n">list</span> <span class="o">=</span> <span class="s">&quot;SELECT nom, videoUrl FROM mime;&quot;</span>
-    <span class="k">let</span> <span class="n">delete</span> <span class="o">=</span> <span class="s">&quot;DELETE FROM mime where nom=? and videoURL=?;&quot;</span>
-    <span class="k">let</span> <span class="n">find</span> <span class="o">=</span> <span class="s">&quot;SELECT nom, videoUrl FROM mime WHERE nom like ?;&quot;</span><span class="p">;</span>
-    <span class="k">let</span> <span class="n">db</span> <span class="o">=</span> <span class="n">SQLiteDB</span><span class="p">.</span><span class="n">sharedInstance</span><span class="p">()</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">
+class MimeStore{
+    let insert = "INSERT INTO mime (nom, videoUrl) VALUES (?, ?);"
+    let list = "SELECT nom, videoUrl FROM mime;"
+    let delete = "DELETE FROM mime where nom=? and videoURL=?;"
+    let find = "SELECT nom, videoUrl FROM mime WHERE nom like ?;";
+    let db = SQLiteDB.sharedInstance()
 
-    <span class="k">func</span> <span class="n">addMime</span><span class="p">(</span><span class="nl">mime</span><span class="p">:</span> <span class="n">MimeModel</span><span class="p">){</span>
-        <span class="k">let</span> <span class="n">err</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="n">insert</span><span class="p">,</span> <span class="nl">parameters</span><span class="p">:</span> <span class="p">[</span><span class="n">mime</span><span class="p">.</span><span class="n">nom</span><span class="p">,</span> <span class="n">mime</span><span class="p">.</span><span class="n">videoUrl</span><span class="p">])</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">err</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
-            <span class="n">NSLog</span><span class="p">(</span><span class="s">&quot;ERROR during save of mime</span><span class="se">\n</span><span class="s">\(err)&quot;</span><span class="p">)</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
+    func addMime(mime: MimeModel){
+        let err = db.execute(insert, parameters: [mime.nom, mime.videoUrl])
+        if (err == 0){
+            NSLog("ERROR during save of mime\n\(err)")
+        }
+    }
 
-    <span class="k">func</span> <span class="n">listMime</span><span class="p">(</span><span class="nl">query</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">MimeModel</span><span class="o">&gt;</span> <span class="p">{</span>
-        <span class="k">let</span> <span class="n">resultSet</span> <span class="o">=</span>  <span class="n">query</span><span class="o">!</span><span class="p">.</span><span class="n">isEmpty</span> <span class="o">?</span> <span class="n">db</span><span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="o">:</span> <span class="n">db</span><span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="n">find</span><span class="p">,</span> <span class="nl">parameters</span><span class="p">:[</span><span class="s">&quot;\(query!)%&quot;</span><span class="p">])</span>
+    func listMime(query: String?) -&gt; Array&lt;MimeModel&gt; {
+        let resultSet =  query!.isEmpty ? db.query(list) : db.query(find, parameters:["\(query!)%"])
 
-        <span class="k">return</span> <span class="n">resultSet</span><span class="p">.</span><span class="n">map</span> <span class="p">{</span>
-            <span class="p">(</span><span class="nl">row</span><span class="p">:</span><span class="n">SQLRow</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MimeModel</span> <span class="k">in</span>
-            <span class="k">let</span> <span class="n">nom</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s">&quot;nom&quot;</span><span class="p">]</span><span class="o">!</span><span class="p">.</span><span class="n">asString</span><span class="p">()</span>
-            <span class="k">let</span> <span class="n">videoUrl</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s">&quot;videoUrl&quot;</span><span class="p">]</span><span class="o">!</span><span class="p">.</span><span class="n">asString</span><span class="p">()</span>
-            <span class="k">return</span> <span class="n">MimeModel</span><span class="p">(</span><span class="nl">nom</span><span class="p">:</span><span class="n">nom</span><span class="p">,</span> <span class="nl">videoUrl</span><span class="p">:</span><span class="n">videoUrl</span><span class="p">)</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">func</span> <span class="n">delete</span><span class="p">(</span><span class="nl">mime</span><span class="p">:</span> <span class="n">MimeModel</span><span class="p">){</span>
-        <span class="k">let</span> <span class="n">err</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="n">delete</span><span class="p">,</span> <span class="nl">parameters</span><span class="p">:</span> <span class="p">[</span><span class="n">mime</span><span class="p">.</span><span class="n">nom</span><span class="p">,</span> <span class="n">mime</span><span class="p">.</span><span class="n">videoUrl</span><span class="p">])</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">err</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
-            <span class="n">NSLog</span><span class="p">(</span><span class="s">&quot;ERROR during deleting mime&quot;</span><span class="p">)</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+        return resultSet.map {
+            (row:SQLRow) -&gt; MimeModel in
+            let nom = row["nom"]!.asString()
+            let videoUrl = row["videoUrl"]!.asString()
+            return MimeModel(nom:nom, videoUrl:videoUrl)
+        }
+    }
+    func delete(mime: MimeModel){
+        let err = db.execute(delete, parameters: [mime.nom, mime.videoUrl])
+        if(err == 0){
+            NSLog("ERROR during deleting mime")
+        }
+    }
+}
 </code></pre></div>
 <p>Pas plus compliqué que cela. On a maintenant un module de persitence fonctionnel.
 Pour valider qu&#39;il fonctionne, on va ajouter le comportement du bouton OK, dans le formulaire d&#39;ajout de mime.</p>
 
 <p>Pour cela on va définir des propriété <code>model</code> et <code>store</code> dans notre ViewController. On va aussi ajouter une propriété qui va représenter notre champ de texte.</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">let</span> <span class="nl">model</span><span class="p">:</span> <span class="n">MimeModel</span> <span class="o">=</span>  <span class="n">MimeModel</span><span class="p">()</span>
-<span class="k">let</span> <span class="nl">store</span><span class="p">:</span> <span class="n">MimeStore</span> <span class="o">=</span> <span class="n">MimeStore</span><span class="p">()</span>
-<span class="p">@</span><span class="kt">IBOutlet</span>
-<span class="k">var</span> <span class="nl">nomField</span><span class="p">:</span> <span class="bp">UITextField</span><span class="o">!</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">let model: MimeModel =  MimeModel()
+let store: MimeStore = MimeStore()
+@IBOutlet
+var nomField: UITextField!
 </code></pre></div>
 <p>La déclaration du champs <code>nomField</code> a deux particularités. Il est annoté <code>IBOutlet</code>
 et son type est suivi d&#39;un !. L&#39;annotation est la pour la même raison que les annotations  <code>IBAction</code> que l&#39;on a vues un peut plus tôt, pour permettre de tracer des segues depuis et vers ce morceau de code. Le point d&#39;exclamation est présent à cause du type imposé par IBOutlet. IBOutlet impose que le type de la variable annoté soit un type optionnel. Car la variable va être injectée, donc on ne sait pas quand elle sera définie et il se peut que l&#39;on exécutât du code qui veuille accéder à cette variable avant cela.</p>
@@ -453,16 +455,16 @@ Le typage avec ? Démontre que le type est optionnel et que l&#39;on peut obteni
 une valeur vide ou une vraie valeur si l&#39;on va chercher cette valeur. Par contre, si l&#39;on va chercher une valeur avec ! le programme peut s&#39;arrêter de manière inattendue.</p>
 
 <p>On va aussi ajouter deux fonctions, une qui sera exécutée quand le texte du champ nom sera changé, et une qui sera exécutée quand le bouton ajouter sera cliqué.</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="p">@</span><span class="kt">IBAction</span>
-<span class="k">func</span> <span class="n">onTextChange</span><span class="p">(){</span>
-    <span class="n">model</span><span class="p">.</span><span class="n">nom</span> <span class="o">=</span> <span class="n">nomField</span><span class="p">.</span><span class="n">text</span>
-<span class="p">}</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">@IBAction
+func onTextChange(){
+    model.nom = nomField.text
+}
 
-<span class="p">@</span><span class="kt">IBAction</span>
-<span class="k">func</span> <span class="n">ajouterMime</span><span class="p">(){</span>
-    <span class="n">store</span><span class="p">.</span><span class="n">addMime</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
-    <span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">?</span><span class="p">.</span><span class="n">popToRootViewControllerAnimated</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
-<span class="p">}</span>
+@IBAction
+func ajouterMime(){
+    store.addMime(model)
+    self.navigationController?.popToRootViewControllerAnimated(true)
+}
 </code></pre></div>
 <p>Pour que tout cela fonctionne, il reste à placer des segues entre onTextChange et le champ de texte, xcode va proposé plusieurs évènements on choisira <code>editing did end</code>. On placera aussi un segue entre <code>ajouterMime</code> et le bouton <code>Ajouter</code> et un dernier entre <code>nomField</code> et le champ de texte.</p>
 
@@ -475,38 +477,38 @@ une valeur vide ou une vraie valeur si l&#39;on va chercher cette valeur. Par co
 <p>Jusqu&#39;ici, on a une liste avec un prototype de cellule, mais one ne fait rien avec tout ça. Un peu poche.</p>
 
 <p>Pour corriger cela, très simple. On va ajouter deux mixins à notre classe <code>ListerMimeViewController</code>.</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">class</span> <span class="nl">ListerMimeViewController</span><span class="p">:</span> <span class="bp">UIViewController</span><span class="p">,</span> <span class="bp">UITableViewDelegate</span><span class="p">,</span> <span class="bp">UITableViewDataSource</span>  <span class="p">{</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">class ListerMimeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
 </code></pre></div>
 <p><code>UITableViewDelegate</code> permet de gérer le comportement de la liste. <code>UITableViewDataSource</code> permet quand à lui de donner du contenu à notre liste.</p>
 
 <p><code>UITableViewDataSource</code> nous force à implémenter deux méthodes, il y en a d&#39;autres qui sont optionnels.</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">func</span> <span class="n">tableView</span><span class="p">(</span> <span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span>
-    <span class="n">cellForRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">UITableViewCell</span><span class="p">{</span>
-        <span class="k">var</span> <span class="n">cell</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="o">!</span><span class="p">.</span><span class="n">dequeueReusableCellWithIdentifier</span><span class="p">(</span><span class="s">&quot;cell&quot;</span><span class="p">)</span> <span class="kt">as</span> <span class="bp">UITableViewCell</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">func tableView( tableView: UITableView,
+    cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell{
+        var cell = self.tableView!.dequeueReusableCellWithIdentifier("cell") as UITableViewCell
 
-        <span class="k">let</span> <span class="n">model</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">store</span><span class="p">.</span><span class="n">listMime</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">]</span>
-        <span class="n">cell</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">nom</span>
-        <span class="k">return</span> <span class="n">cell</span>
+        let model = self.store.listMime("")[indexPath.row]
+        cell.textLabel.text = model.nom
+        return cell
 
-<span class="p">}</span>
-<span class="k">func</span> <span class="n">tableView</span><span class="p">(</span> <span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span>
-    <span class="n">numberOfRowsInSection</span> <span class="nl">section</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">{</span>
-        <span class="k">return</span> <span class="n">store</span><span class="p">.</span><span class="n">listMime</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">).</span><span class="n">count</span>
-<span class="p">}</span>
+}
+func tableView( tableView: UITableView,
+    numberOfRowsInSection section: Int) -&gt; Int{
+        return store.listMime("").count
+}
 </code></pre></div>
 <p>On ajoute aussi deux membres à notre classe pour pouvoir manipuler les éléments de cette vue. On fera aussi le lien entre le membre tableView et le widget dans la vue avec le Storyboard.</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="p">@</span><span class="kt">IBOutlet</span>
-<span class="k">var</span> <span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="o">!</span>
-<span class="k">let</span> <span class="n">store</span> <span class="o">=</span> <span class="n">MimeStore</span><span class="p">()</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">@IBOutlet
+var tableView: UITableView!
+let store = MimeStore()
 </code></pre></div>
 <p>On a aussi besoin de pluguer les membres dataStore et delegate du tableView sur notre <code>ListerMimeViewController</code>. On va modifier notre méthode <code>viewDidLoad</code> pour faire ce branchement.</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="kr">override</span> <span class="k">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nb">super</span><span class="p">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
-    <span class="c1">// Do any additional setup after loading the view, typically from a nib.</span>
-    <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="o">?</span><span class="p">.</span><span class="n">registerClass</span><span class="p">(</span><span class="bp">UITableViewCell</span><span class="p">.</span><span class="nb">self</span><span class="p">,</span> <span class="nl">forCellReuseIdentifier</span><span class="p">:</span> <span class="s">&quot;cell&quot;</span><span class="p">)</span>
-    <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="nb">self</span>
-    <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="p">.</span><span class="n">dataSource</span> <span class="o">=</span> <span class="nb">self</span>
-<span class="p">}</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">override func viewDidLoad() {
+    super.viewDidLoad()
+    // Do any additional setup after loading the view, typically from a nib.
+    self.tableView?.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+    self.tableView.delegate = self
+    self.tableView.dataSource = self
+}
 </code></pre></div>
 <p>Et voilà, notre liste est prête à recevoir les mimes du store.
 On peut le valider en créant des mimes.</p>
@@ -520,33 +522,33 @@ On peut le valider en créant des mimes.</p>
 <p>Avec ce que l&#39;on a mis en place dans les étapes précédentes on s&#39;est facilité la vie.</p>
 
 <p>On va ajouter une référence vers la barre de recherche dans la <code>ListerMimeViewController</code>. Et on fera un lien avec le widget dans le story-board.</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="p">@</span><span class="kt">IBOutlet</span>
-<span class="k">var</span> <span class="nl">searchBar</span><span class="p">:</span> <span class="bp">UISearchBar</span><span class="o">!</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">@IBOutlet
+var searchBar: UISearchBar!
 </code></pre></div>
 <p>Puis, on modifie les méthodes de gestion de la liste pour se baser sur un sous ensemble de mime dont le nom match le texte dans la barre de recherche.</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">func</span> <span class="n">tableView</span><span class="p">(</span> <span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span>
-    <span class="n">cellForRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">UITableViewCell</span><span class="p">{</span>
-        <span class="k">var</span> <span class="n">cell</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="o">!</span><span class="p">.</span><span class="n">dequeueReusableCellWithIdentifier</span><span class="p">(</span><span class="s">&quot;cell&quot;</span><span class="p">)</span> <span class="kt">as</span> <span class="bp">UITableViewCell</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">func tableView( tableView: UITableView,
+    cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell{
+        var cell = self.tableView!.dequeueReusableCellWithIdentifier("cell") as UITableViewCell
 
-        <span class="k">let</span> <span class="n">model</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">store</span><span class="p">.</span><span class="n">listMime</span><span class="p">(</span><span class="n">searchBar</span><span class="p">.</span><span class="n">text</span><span class="p">)[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">]</span>
-        <span class="n">cell</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">nom</span>
-        <span class="k">return</span> <span class="n">cell</span>
+        let model = self.store.listMime(searchBar.text)[indexPath.row]
+        cell.textLabel.text = model.nom
+        return cell
 
-<span class="p">}</span>
+}
 
-<span class="k">func</span> <span class="n">tableView</span><span class="p">(</span> <span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span>
-    <span class="n">numberOfRowsInSection</span> <span class="nl">section</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">{</span>
-        <span class="k">return</span> <span class="n">store</span><span class="p">.</span><span class="n">listMime</span><span class="p">(</span><span class="n">searchBar</span><span class="p">.</span><span class="n">text</span><span class="p">).</span><span class="n">count</span>
-<span class="p">}</span>
+func tableView( tableView: UITableView,
+    numberOfRowsInSection section: Int) -&gt; Int{
+        return store.listMime(searchBar.text).count
+}
 </code></pre></div>
 <p>Avec ceci, la liste contiendra uniquement les mimes dont le nom match le continue de la barre de recherche. Mais, si le contenu de la barre change, il ne se passe rien. Pour cela, on va ajouter le delegate <code>UISearchBarDelegate</code>
 Ce delegate nous permet d&#39;ajouter des méthodes qui seront appelées lors d&#39;évènement spécifiques.</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">func</span> <span class="nf">searchBar</span><span class="p">(</span><span class="nl">searchBar</span><span class="p">:</span> <span class="bp">UISearchBar</span><span class="p">,</span> <span class="n">textDidChange</span> <span class="nl">searchText</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="p">.</span><span class="n">reloadData</span><span class="p">()</span>
-<span class="p">}</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+      self.tableView.reloadData()
+}
 </code></pre></div>
 <p>Pour que la barre de recherche utilise, notre view controller comme delegate, on va lui demandé de le faire en ajoutant ceci dans la méthode <code>viewDidLoad()</code>.</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="nb">self</span><span class="p">.</span><span class="n">searchBar</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="nb">self</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">self.searchBar.delegate = self
 </code></pre></div>
 <p>TAG: <a href="https://github.com/benzen/mimetionnaire-tuto/tree/step-7">step-7</a></p>
 
@@ -557,25 +559,25 @@ Ce delegate nous permet d&#39;ajouter des méthodes qui seront appelées lors d&
 <p>Pour cela, on va ajouter une nouvelle vue dans notre Story-board, un <code>AVKitPlayerViewController</code>. Ensuite, on va tracer un segue depuis la cellule prototype de la liste, avec le triggered Segue <code>Selection</code> (pour que le lien se fasse lors d&#39;une sélection de cellules) vers le Player vidéo. J&#39;ai choisi le mode de transition modal, ça c&#39;est celui qui donne le meilleur effet dans ce cas-ci.</p>
 
 <p>La transition peut maintenant se faire, mais le ployer ne sait pas quoi jouer quand on veut l&#39;afficher. Pour cela, il faut lui fournir l&#39;url de notre vidéo. Pour faire ça, on va ajouter les deux méthodes suivantes.</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">func</span> <span class="nf">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span> <span class="n">didSelectRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="o">!</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nb">self</span><span class="p">.</span><span class="n">performSegueWithIdentifier</span><span class="p">(</span><span class="s">&quot;playVideo&quot;</span><span class="p">,</span> <span class="nl">sender</span><span class="p">:</span> <span class="nb">self</span><span class="p">)</span>
-<span class="p">}</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+    self.performSegueWithIdentifier("playVideo", sender: self)
+}
 
-<span class="kr">override</span> <span class="k">func</span> <span class="nf">prepareForSegue</span><span class="p">(</span><span class="nl">segue</span><span class="p">:</span> <span class="bp">UIStoryboardSegue</span><span class="p">,</span> <span class="nl">sender</span><span class="p">:</span> <span class="n">AnyObject</span><span class="o">!</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">segue</span><span class="p">.</span><span class="n">identifier</span> <span class="o">==</span> <span class="s">&quot;playVideo&quot;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">let</span> <span class="n">indexPath</span> <span class="o">=</span> <span class="n">tableView</span><span class="o">?</span><span class="p">.</span><span class="n">indexPathForSelectedRow</span><span class="p">()</span>
-        <span class="k">let</span> <span class="n">model</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">store</span><span class="p">.</span><span class="n">listMime</span><span class="p">(</span><span class="n">searchBar</span><span class="o">?</span><span class="p">.</span><span class="n">text</span><span class="p">)[</span><span class="n">indexPath</span><span class="o">!</span><span class="p">.</span><span class="n">row</span><span class="p">]</span> <span class="kt">as</span> <span class="n">MimeModel</span>
-        <span class="k">let</span> <span class="n">url</span> <span class="o">=</span> <span class="bp">NSURL</span><span class="p">(</span><span class="nl">string</span><span class="p">:</span> <span class="n">model</span><span class="p">.</span><span class="n">videoUrl</span><span class="p">)</span>
-        <span class="k">if</span> <span class="k">let</span> <span class="n">subVC</span> <span class="o">=</span> <span class="n">segue</span><span class="p">.</span><span class="n">destinationViewController</span> <span class="kt">as</span><span class="o">?</span> <span class="n">AVPlayerViewController</span> <span class="p">{</span>
-            <span class="n">subVC</span><span class="p">.</span><span class="n">player</span> <span class="o">=</span> <span class="bp">AVPlayer</span><span class="p">(</span><span class="nl">URL</span><span class="p">:</span> <span class="n">url</span><span class="p">)</span>
-            <span class="n">subVC</span><span class="p">.</span><span class="n">player</span><span class="p">.</span><span class="n">play</span><span class="p">()</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+    if (segue.identifier == "playVideo") {
+        let indexPath = tableView?.indexPathForSelectedRow()
+        let model = self.store.listMime(searchBar?.text)[indexPath!.row] as MimeModel
+        let url = NSURL(string: model.videoUrl)
+        if let subVC = segue.destinationViewController as? AVPlayerViewController {
+            subVC.player = AVPlayer(URL: url)
+            subVC.player.play()
+        }
+    }
+}
 </code></pre></div>
 <p>Le compilateur va se plaindre qu&#39;il ne connaît pas les class <code>AVPlayerViewController</code> et <code>AVPlayer</code>. Ajouter donc ceci dans vos imports.</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">import</span> <span class="n">AVKit</span>
-<span class="k">import</span> <span class="n">AVFoundation</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">import AVKit
+import AVFoundation
 </code></pre></div>
 <p>Si vous avez porté attention vous aurez remarqué qu&#39;on parle d&#39;identifiant de segue dans le code que l&#39;on vient d&#39;introduire.
 Mais, on a jamais défini d&#39;identifiant de segue. On va utiliser <code>playVideo</code> pour le segue entre la liste et le player. À cause d&#39;un bug dans la plateforme, on va devoir en définir aussi sur les autres segue, même si ce sont des chaines vides, il faut en ajouter, et le supprimer sur tous les segues, pas de pleurnichage on a juste un segue à nommer et dénommer.</p>
@@ -587,18 +589,18 @@ Mais, on a jamais défini d&#39;identifiant de segue. On va utiliser <code>playV
 <h2>Supprimer des mimes</h2>
 
 <p>On a tous vu des actions sur une liste, ou on fait glisser la cellule vers la droite ou la gauche. Il s&#39;avère que c&#39;est simple à implémenter, alors c&#39;est comme cela qu&#39;on va faire la suppression de mime.</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">func</span> <span class="nf">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="o">!</span><span class="p">,</span> <span class="n">canEditRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nb">true</span>
-    <span class="p">}</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -&gt; Bool {
+        return true
+    }
 
-<span class="k">func</span> <span class="n">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="o">!</span><span class="p">,</span> <span class="n">commitEditingStyle</span> <span class="nl">editingStyle</span><span class="p">:</span> <span class="n">UITableViewCellEditingStyle</span><span class="p">,</span> <span class="n">forRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="o">!</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">editingStyle</span> <span class="o">==</span> <span class="n">UITableViewCellEditingStyle</span><span class="p">.</span><span class="n">Delete</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// handle delete (by removing the data from your array and updating the tableview)</span>
-        <span class="k">let</span> <span class="n">model</span> <span class="o">=</span> <span class="n">store</span><span class="p">.</span><span class="n">listMime</span><span class="p">(</span><span class="n">searchBar</span><span class="p">.</span><span class="n">text</span><span class="p">)[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">]</span>
-        <span class="n">store</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
-        <span class="n">tableView</span><span class="p">.</span><span class="n">deleteRowsAtIndexPaths</span><span class="p">([</span><span class="n">indexPath</span><span class="p">],</span> <span class="nl">withRowAnimation</span><span class="p">:</span> <span class="p">.</span><span class="n">Fade</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
+    if (editingStyle == UITableViewCellEditingStyle.Delete) {
+        // handle delete (by removing the data from your array and updating the tableview)
+        let model = store.listMime(searchBar.text)[indexPath.row]
+        store.delete(model)
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    }
+}
 </code></pre></div>
 <p>That&#39;s it, c&#39;est cool quand même.</p>
 
@@ -610,30 +612,31 @@ Mais, on a jamais défini d&#39;identifiant de segue. On va utiliser <code>playV
 Je veux que la barre de recherche soit cachée par défaut et qu&#39;il faille tirer la liste vers le bas pour l&#39;afficher. C&#39;est là, que l&#39;on peut comprendre la raison pour laquelle j&#39;ai insisté sur le positionnement de la barre de recherche, TOUT en haut. On a placé la barre dans le header du tableView pour que sa position soit fixe et donc plus facile à cacher.</p>
 
 <p>Voilà la méthode qui va permettre de cacher notre barre.</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">func</span> <span class="nf">hideSearchBar</span><span class="p">(){</span>
-    <span class="k">var</span> <span class="n">frame</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="p">.</span><span class="n">frame</span>
-    <span class="k">let</span> <span class="n">isSearchBarVisible</span> <span class="o">=</span> <span class="n">CGRectIntersectsRect</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">searchBar</span><span class="p">.</span><span class="n">frame</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">isSearchBarVisible</span> <span class="p">{</span>
-        <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="p">.</span><span class="n">contentOffset</span><span class="p">.</span><span class="n">y</span> <span class="o">+</span> <span class="nb">self</span><span class="p">.</span><span class="n">searchBar</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">height</span>
-        <span class="k">let</span> <span class="n">newContentOffset</span> <span class="o">=</span> <span class="bp">CGPoint</span><span class="p">(</span><span class="nl">x</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="nl">y</span><span class="p">:</span> <span class="n">y</span><span class="p">)</span>
-        <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="o">?</span><span class="p">.</span><span class="n">setContentOffset</span><span class="p">(</span> <span class="n">newContentOffset</span><span class="p">,</span> <span class="nl">animated</span><span class="p">:</span><span class="nb">true</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">func hideSearchBar(){
+    var frame = self.tableView.frame
+    let isSearchBarVisible = CGRectIntersectsRect(frame, searchBar.frame)
+    if isSearchBarVisible {
+        let y = self.tableView.contentOffset.y + self.searchBar.frame.height
+        let newContentOffset = CGPoint(x:0, y: y)
+        self.tableView?.setContentOffset( newContentOffset, animated:true)
+    }
+}
 </code></pre></div>
 <p>Ensuite, il suffit d&#39;ajouter un appel à cette méthode au bon endroit. Par exemple, lors que l&#39;on parcoure le segue <code>playVideo</code> ou lorsque l&#39;on va cliquer sur le bouton <code>cancel</code> de la barre de recherche ou encore quand la vue va apparaitre.</p>
-<div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="kr">override</span> <span class="k">func</span> <span class="nf">prepareForSegue</span><span class="p">(</span><span class="nl">segue</span><span class="p">:</span> <span class="bp">UIStoryboardSegue</span><span class="p">,</span> <span class="nl">sender</span><span class="p">:</span> <span class="n">AnyObject</span><span class="o">!</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">hideSearchBar</span><span class="p">()</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">segue</span><span class="p">.</span><span class="n">identifier</span> <span class="o">==</span> <span class="s">&quot;playVideo&quot;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="p">...</span>
-</code></pre></div><div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="k">func</span> <span class="nf">searchBarCancelButtonClicked</span><span class="p">(</span><span class="nl">searchBar</span><span class="p">:</span> <span class="bp">UISearchBar</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">hideSearchBar</span><span class="p">()</span>
-    <span class="n">searchBar</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-    <span class="n">tableView</span><span class="p">.</span><span class="n">reloadData</span><span class="p">()</span>
-<span class="p">}</span>
-</code></pre></div><div class="highlight"><pre><code class="language-Swift" data-lang="Swift"><span class="kr">override</span> <span class="k">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
-    <span class="p">...</span>
-    <span class="n">hideSearchBar</span><span class="p">()</span>
-<span class="p">}</span>
+<div class="highlight"><pre><code class="language-Swift" data-lang="Swift">override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+    hideSearchBar()
+    if (segue.identifier == "playVideo") {
+        ...
+</code></pre></div><div class="highlight"><pre><code class="language-Swift" data-lang="Swift">func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    hideSearchBar()
+    searchBar.text = ""
+    tableView.reloadData()
+}
+</code></pre></div><div class="highlight"><pre><code class="language-Swift" data-lang="Swift">override func viewDidLoad() {
+    ...
+    hideSearchBar()
+}
+
 </code></pre></div>
 <p>Et voilà, l&#39;application faite tout ce que je voulais.</p>
 

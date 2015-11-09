@@ -69,9 +69,9 @@ retourne <code>null</code>.</p>
 <div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">select</span>
   <span class="n">id</span><span class="p">,</span> <span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span>
   <span class="k">case</span>
-    <span class="k">when</span> <span class="n">average_bill</span> <span class="o">&lt;</span> <span class="mi">100</span> <span class="k">and</span> <span class="n">nb_visit</span> <span class="o">&gt;</span> <span class="mi">4</span> <span class="k">then</span> <span class="s1">&#39;good customer&#39;</span>
-    <span class="k">when</span> <span class="n">nb_visit</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="k">then</span> <span class="s1">&#39;new customer&#39;</span>
-    <span class="k">else</span> <span class="s1">&#39;pretty average customer&#39;</span>
+    <span class="k">when</span> <span class="n">average_bill</span> <span class="o">&lt;</span> <span class="mi">100</span> <span class="k">and</span> <span class="n">nb_visit</span> <span class="o">&gt;</span> <span class="mi">4</span> <span class="k">then</span> <span class="s1">'good customer'</span>
+    <span class="k">when</span> <span class="n">nb_visit</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="k">then</span> <span class="s1">'new customer'</span>
+    <span class="k">else</span> <span class="s1">'pretty average customer'</span>
   <span class="k">end</span> <span class="k">as</span> <span class="n">customer_type</span><span class="p">;</span>
 </code></pre></div>
 <h1>Références</h1>

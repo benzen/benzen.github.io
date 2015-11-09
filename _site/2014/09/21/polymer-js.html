@@ -84,22 +84,22 @@ Une petite page d&#39;accueil toute simple avec un menu sur la gauche.</p>
 
 <p>En théorie il suffit de deux lignes dans notre <code>head</code>
 pour bootstrapper notre environnement.</p>
-<div class="highlight"><pre><code class="language-jade" data-lang="jade">  <span class="nt">script</span>(<span class="na">src=</span><span class="s">&quot;dep/platform/platform.js&quot;</span>)
-  <span class="nt">link</span>(<span class="na">rel=</span><span class="s">&quot;import&quot;</span><span class="err">,</span> <span class="na">href=</span><span class="s">&quot;dep/polymer/polymer.html&quot;</span>)
+<div class="highlight"><pre><code class="language-jade" data-lang="jade">  script(src="dep/platform/platform.js")
+  link(rel="import", href="dep/polymer/polymer.html")
 </code></pre></div>
 <p>Ce qu&#39;on remarque ici c&#39;est la nouvelle valeur de l&#39;attribut <code>rel</code>.
 Il s&#39;agit de l&#39;import <code>html</code>. C&#39;est comme ça que l&#39;on apporte la définition
 de nos éléments custom dans notre page.</p>
 
 <p>Dans les faits j&#39;ai eu besoin de rajouter pas mal de dépendances HTML.</p>
-<div class="highlight"><pre><code class="language-jade" data-lang="jade">  <span class="nt">link</span>(<span class="na">rel=</span><span class="s">&quot;import&quot;</span><span class="err">,</span> <span class="na">href=</span><span class="s">&quot;dep/core-menu/core-menu.html&quot;</span>)
-  <span class="nt">link</span>(<span class="na">rel=</span><span class="s">&quot;import&quot;</span><span class="err">,</span> <span class="na">href=</span><span class="s">&quot;dep/core-item/core-item.html&quot;</span>)
-  <span class="nt">link</span>(<span class="na">rel=</span><span class="s">&quot;import&quot;</span><span class="err">,</span> <span class="na">href=</span><span class="s">&quot;dep/core-icons/core-icons.html&quot;</span>)
-  <span class="nt">link</span>(<span class="na">rel=</span><span class="s">&quot;import&quot;</span><span class="err">,</span> <span class="na">href=</span><span class="s">&quot;dep/core-scaffold/core-scaffold.html&quot;</span>)
-  <span class="nt">link</span>(<span class="na">rel=</span><span class="s">&quot;import&quot;</span><span class="err">,</span> <span class="na">href=</span><span class="s">&quot;dep/core-header-panel/core-header-panel.html&quot;</span>)
-  <span class="nt">link</span>(<span class="na">rel=</span><span class="s">&quot;import&quot;</span><span class="err">,</span> <span class="na">href=</span><span class="s">&quot;dep/core-pages/core-pages.html&quot;</span>)
-  <span class="nt">link</span>(<span class="na">rel=</span><span class="s">&quot;import&quot;</span><span class="err">,</span> <span class="na">href=</span><span class="s">&quot;dep/paper-shadow/paper-shadow.html&quot;</span>)
-  <span class="nt">link</span>(<span class="na">rel=</span><span class="s">&quot;import&quot;</span><span class="err">,</span> <span class="na">href=</span><span class="s">&quot;dep/app-router/app-router.html&quot;</span>)
+<div class="highlight"><pre><code class="language-jade" data-lang="jade">  link(rel="import", href="dep/core-menu/core-menu.html")
+  link(rel="import", href="dep/core-item/core-item.html")
+  link(rel="import", href="dep/core-icons/core-icons.html")
+  link(rel="import", href="dep/core-scaffold/core-scaffold.html")
+  link(rel="import", href="dep/core-header-panel/core-header-panel.html")
+  link(rel="import", href="dep/core-pages/core-pages.html")
+  link(rel="import", href="dep/paper-shadow/paper-shadow.html")
+  link(rel="import", href="dep/app-router/app-router.html")
 </code></pre></div>
 <p>Je ne suis pas certain, mais je crois que j&#39;aurais pu en enlever
  certains grâce à leurs dépendances. Je me suis rendu avec cette liste en
@@ -109,15 +109,15 @@ de nos éléments custom dans notre page.</p>
 <h1>Mon premier élément</h1>
 
 <p>Créer un élément avec polymer c&#39;est super facile.</p>
-<div class="highlight"><pre><code class="language-jade" data-lang="jade"><span class="nt">polymer-element</span>(<span class="na">name=</span><span class="s">&quot;mon-premier-element&quot;</span><span class="err">,\</span><span class="na">attributes=</span><span class="s">&quot;prop1 prop2 prop3&quot;</span>)
-  <span class="nt">template</span>
-    <span class="nt">h1</span> Mon titre avec une propriété , , 
-  <span class="nt">script</span>.
-    <span class="nt">Polymer</span>(<span class="err">{</span>
-        <span class="na">ready:function</span><span class="err">(</span>){
-          <span class="nt">console</span><span class="nc">.log</span>(<span class="err">&quot;</span> <span class="na">un</span> <span class="na">tout</span> <span class="na">petit</span> <span class="na">message</span><span class="err">&quot;</span> )
-        <span class="err">}</span>
-    <span class="err">})</span>
+<div class="highlight"><pre><code class="language-jade" data-lang="jade">polymer-element(name="mon-premier-element",\attributes="prop1 prop2 prop3")
+  template
+    h1 Mon titre avec une propriété , , 
+  script.
+    Polymer({
+        ready:function(){
+          console.log(" un tout petit message" )
+        }
+    })
 </code></pre></div>
 <p>L&#39;élément <code>polymer-element</code> permet de déclarer le nouvel élément <code>mon-premier-element</code>.
 L&#39;attribut <code>attributes</code> permet de définir quelles propriétés de notre nouvel
@@ -130,8 +130,8 @@ sera injecté dans le DOM. L&#39;élément template supporte l&#39;expansion de 
 avec des moustaches. Si l’on veut avoir un peut de logique tout ça est possible
 avec d&#39;autres balises template. Elle supporte par exemple un attribut <code>repeat</code> qui peut
 prendre tout une série de format d&#39;expression comme par exemple:</p>
-<div class="highlight"><pre><code class="language-jade" data-lang="jade">  <span class="nt">template</span>(<span class="na">repeat=</span><span class="s">&quot;moustache in mustaches&quot;</span>)
-    <span class="nt">p</span> La moustache  est la plus belle moustache que j&#39;ai vu.
+<div class="highlight"><pre><code class="language-jade" data-lang="jade">  template(repeat="moustache in mustaches")
+    p La moustache  est la plus belle moustache que j'ai vu.
 </code></pre></div>
 <p>L&#39;élément <code>script</code> permet de donner un peu de logique pour notre élément.
 Ce n&#39;est pas nécessaire, mais ça peut être utile.
@@ -178,7 +178,7 @@ lorsque le résultat est revenu.</p>
 un objet. Si notre objet à un seul niveau tout va bien, par contre si on
 a eu la mauvaise idée de faire une requête avec un objet à deux niveaux de
 profondeur, on se retrouve avec une query string mal encodé genre:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">query?param=[Object: object]
+<div class="highlight"><pre><code class="language-" data-lang="">query?param=[Object: object]
 </code></pre></div>
 <p>Ce n&#39;est pas bien grave c&#39;est le genre de chose qui se corrige vite.
 D&#39;après ce qui s&#39;est passé sur le
